@@ -3,14 +3,14 @@
 
 """
 generate_index.py
-扫描当前目录所有 day_xx.py 文件，自动生成按顺序的索引列表。
+扫描 Learn 目录所有 day_xx.py 文件，自动生成按顺序的索引列表。
 """
 
 from pathlib import Path
 import re
 
 def main():
-    p = Path(".")
+    p = Path("Learn")
     files = []
 
     for f in p.iterdir():

@@ -6,5 +6,7 @@ h = Hello()
 h.hello()   # Hello, world.
 
 print(type(Hello))  # <class 'type'>
-print(type(h))
+print(type(h))  # <class '__main__.Hello'>，
+#   h = Hello()  是类 Hello 的实例
+#   实例对象的类型就是它归属的类
 
