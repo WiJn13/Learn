@@ -1,3 +1,5 @@
+# TITLE: 闭包、lazy 函数与匿名函数
+# CATEGORY: 闭包与函数式编程
 def lazy_sum(*args):
     def sum():
         ax = 0

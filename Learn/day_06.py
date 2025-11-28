@@ -1,3 +1,5 @@
+# TITLE: 不可变对象、dict/set 与基础函数
+# CATEGORY: 数据类型与函数基础
 # 2025.08.28\29
 # NOTE:
 # dict根据key来计算value的存储位置，如果每次计算相同的key得出的结果不同，那dict内部就完全混乱了。这种通过key计算位置的算法成为哈希算法(Hash)。

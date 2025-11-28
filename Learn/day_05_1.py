@@ -1,3 +1,5 @@
+# TITLE: list 的基本操作
+# CATEGORY: 容器类型·列表
 # 2024.08.27
 
 my_list=[1,2,3,4]

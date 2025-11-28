@@ -1,3 +1,5 @@
+# TITLE: *args/**kw 高级用法与参数校验
+# CATEGORY: 函数参数进阶
 # 2025.09.01
 
 def func(a,b,c,*args,name,**kw):

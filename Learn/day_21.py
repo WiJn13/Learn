@@ -1,3 +1,5 @@
+# TITLE: 索引和切片
+# CATEGORY: 面向对象
 class Student(object):
     def __init__(self,name):
         self.name = name

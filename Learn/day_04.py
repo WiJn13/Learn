@@ -1,3 +1,5 @@
+# TITLE: shebang 与编码声明
+# CATEGORY: 脚本基础与环境
 #2024.08.26
 
 # NOTE:

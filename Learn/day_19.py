@@ -1,3 +1,5 @@
+# TITLE: 类属性、实例属性与动态属性
+# CATEGORY: 面向对象·类与实例属性
 class Student(object):
     def __init__(self,name):
         self.name = name

@@ -1,3 +1,5 @@
+# TITLE: Iterable、Iterator 与生成器
+# CATEGORY: 迭代器与生成器
 # 2025.09.09
 # 可以直接作用于for循环的数据类型：list,tuple,dict,set,str.
 # 一类是generator，包括生成器和带yield的generator function

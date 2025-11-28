@@ -1,3 +1,5 @@
+# TITLE: 定制类
+# CATEGORY: 面向对象·定制类
 from enum import Enum, unique
 @unique
 class Weekday(Enum):

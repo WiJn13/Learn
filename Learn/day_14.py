@@ -1,3 +1,5 @@
+# TITLE: map/reduce 与数据转换、字符串规范化
+# CATEGORY: 高阶函数与函数式编程
 # 2025.09.15
 from functools import reduce
 DIGITS = {'0':0,'1':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9}

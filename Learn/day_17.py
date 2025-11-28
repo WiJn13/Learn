@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# TITLE: 模块 test 与 Student 类入门
+# CATEGORY: 模块与面向对象基础
 # -*- cording: utf-8 -*-
 
 'a test module'
