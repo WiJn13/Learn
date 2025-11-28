@@ -1,0 +1,10 @@
+class Hello(object):
+    def hello(self, name='world'):  # 设置函数参数默认值，等号前后不空格
+        print('Hello, %s.' % name)
+
+h = Hello()
+h.hello()   # Hello, world.
+
+print(type(Hello))  # <class 'type'>
+print(type(h))
+
