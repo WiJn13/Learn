@@ -12,8 +12,18 @@ update_readme.py
 4. 自动替换 README.md 中 <!-- INDEX-START --> 和 <!-- INDEX-END --> 之间的内容
 """
 
+
 from pathlib import Path
 import re
+
+
+# Helper to replace a block between start_tag and end_tag in text
+def _replace_block(text: str, start_tag: str, end_tag: str, block: str) -> str:
+    if start_tag not in text or end_tag not in text:
+        return text
+    before, rest = text.split(start_tag, 1)
+    _, after = rest.split(end_tag, 1)
+    return before + start_tag + block + end_tag + after
 
 
 ROOT = Path(__file__).resolve().parent
@@ -114,9 +124,52 @@ def render_index_block(items):
     return "\n".join(lines)
 
 
-def update_readme(block: str):
+# 生成项目目录结构预览代码块（TREE-START/TREE-END）
+def build_tree_block() -> str:
+    """生成项目目录结构预览代码块（TREE-START/TREE-END）。"""
+    lines = []
+    lines.append("")
+    lines.append("```text")
+    lines.append("Python/")
+
+    # Learn 目录
+    if LEARN.exists():
+        lines.append("│── Learn/")
+        day_files = [f.name for f in LEARN.iterdir() if f.is_file() and f.name.startswith("day_")]
+        for name in sorted(day_files):
+            lines.append(f"│     ├── {name}")
+        lines.append("│")
+
+    # 顶层脚本
+    top_scripts = [
+        "autopush.py",
+        "update_readme.py",
+        "generate_index.py",
+        "move_day_files.py",
+        "originize_files.py",
+        "batch_rename_modules.py",
+        "calculate_days_lived.py",
+        "README.md",
+    ]
+
+    for script in top_scripts:
+        if (ROOT / script).exists():
+            lines.append(f"│── {script}")
+
+    # 资源类目录
+    for dirname in ["resources", "images", "misc"]:
+        if (ROOT / dirname).exists():
+            lines.append(f"│── {dirname}/")
+
+    lines.append("```")
+    lines.append("")
+    return "\n".join(lines)
+
+
+def update_readme(index_block: str, tree_block: str):
     """
     把 README.md 中 <!-- INDEX-START --> 和 <!-- INDEX-END --> 之间替换掉
+    同时替换 <!-- TREE-START --> 和 <!-- TREE-END --> 之间的内容
     """
     if not README.exists():
         print("未找到 README.md")
@@ -124,25 +177,21 @@ def update_readme(block: str):
 
     text = README.read_text(encoding="utf-8")
 
-    start_tag = "<!-- INDEX-START -->"
-    end_tag = "<!-- INDEX-END -->"
+    # 替换索引区域
+    text = _replace_block(text, "<!-- INDEX-START -->", "<!-- INDEX-END -->", index_block)
 
-    if start_tag not in text or end_tag not in text:
-        print("README.md 中缺少 INDEX-START 或 INDEX-END 标记。")
-        return
+    # 替换目录结构区域
+    text = _replace_block(text, "<!-- TREE-START -->", "<!-- TREE-END -->", tree_block)
 
-    before, rest = text.split(start_tag, 1)
-    _, after = rest.split(end_tag, 1)
-
-    new_text = before + start_tag + block + end_tag + after
-    README.write_text(new_text, encoding="utf-8")
+    README.write_text(text, encoding="utf-8")
     print("✅ README.md 已更新。")
 
 
 def main():
     items = collect_items()
-    block = render_index_block(items)
-    update_readme(block)
+    index_block = render_index_block(items)
+    tree_block = build_tree_block()
+    update_readme(index_block, tree_block)
 
 
 if __name__ == "__main__":

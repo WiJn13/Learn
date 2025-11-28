@@ -42,13 +42,37 @@
 ---
 
 ## 📦 目录结构
-```
+
+下面是自动生成的项目结构预览（由脚本自动更新）：
+
+<!-- TREE-START -->
+```text
 Python/
 │── Learn/
 │     ├── day_01.py
 │     ├── day_02.py
 │     ├── day_03.py
-│     ├── ...
+│     ├── day_04.py
+│     ├── day_05_1.py
+│     ├── day_05_2.py
+│     ├── day_06.py
+│     ├── day_07.py
+│     ├── day_08.py
+│     ├── day_09.py
+│     ├── day_10.py
+│     ├── day_11.py
+│     ├── day_12.py
+│     ├── day_13.py
+│     ├── day_14.py
+│     ├── day_15.py
+│     ├── day_16.py
+│     ├── day_17.py
+│     ├── day_18.py
+│     ├── day_19.py
+│     ├── day_20.py
+│     ├── day_21.py
+│     ├── day_22.py
+│     ├── day_23.py
 │
 │── autopush.py
 │── update_readme.py
@@ -56,10 +80,9 @@ Python/
 │── move_day_files.py
 │── originize_files.py
 │── batch_rename_modules.py
-│── calculate_days_lived.py
 │── README.md
-│
 │── resources/
 │── images/
 │── misc/
 ```
+<!-- TREE-END -->
