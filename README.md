@@ -42,3 +42,24 @@
 ---
 
 ## 📦 目录结构
+```
+Python/
+│── Learn/
+│     ├── day_01.py
+│     ├── day_02.py
+│     ├── day_03.py
+│     ├── ...
+│
+│── autopush.py
+│── update_readme.py
+│── generate_index.py
+│── move_day_files.py
+│── originize_files.py
+│── batch_rename_modules.py
+│── calculate_days_lived.py
+│── README.md
+│
+│── resources/
+│── images/
+│── misc/
+```
