@@ -57,4 +57,16 @@ print('L =', L)
 print('type(L) =', type(L))
 print('type(MyList) =', type(MyList))
 
+try:
+    s = input('输入一个整数：')
+    n = int(s)  # 可能ValueError
+    r = 10 / n  # 可能ZeroDivisionError
+except ValueError as e:
+    print('数值错误：', e)
+except ZeroDivisionError as e:
+    print('除数不能为0：', e)
+else:
+    print('结果为：', r)
+finally:
+    print('本次计算结束')
 
