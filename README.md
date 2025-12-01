@@ -35,6 +35,7 @@
 21 - day_21.py [面向对象] 索引和切片
 22 - day_22.py [面向对象·定制类] 定制类
 23 - day_23.py [面向对象·元类] 使用元类
+24 - day_24.py [元类，错误处理]
 ```
 <!-- INDEX-END -->
 
@@ -73,6 +74,7 @@ Python/
 │     ├── day_21.py
 │     ├── day_22.py
 │     ├── day_23.py
+│     ├── day_24.py
 │
 │── autopush.py
 │── update_readme.py
