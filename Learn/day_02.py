@@ -1,5 +1,5 @@
 # TITLE: 字符串操作与进制转换
-# CATEGORY: 字符串与序列
+# CATEGORY: Python基础
 #2025.08.24
 
 n='123#'

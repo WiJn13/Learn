@@ -1,5 +1,5 @@
 # TITLE: Iterable / Iterator 与迭代器使用
-# CATEGORY: 迭代与循环
+# CATEGORY: 高级特性
 from collections.abc import Iterable
 print(isinstance('abc',Iterable))   # str是否可迭代。True
 

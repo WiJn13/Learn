@@ -1,5 +1,5 @@
 # TITLE: 字符编码、bytes 与进制
-# CATEGORY: 字符编码与进制
+# CATEGORY: Python基础
 #2025.08.25
 
 print(ord('中'))

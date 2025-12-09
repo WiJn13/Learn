@@ -1,5 +1,5 @@
 # TITLE: 二次方程、默认参数与可变参数
-# CATEGORY: 函数进阶
+# CATEGORY: 函数
 # 2025.08.31
 def quadratic(a,b,c):
     import math

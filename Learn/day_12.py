@@ -1,5 +1,5 @@
 # TITLE: 列表推导式与 os.listdir
-# CATEGORY: 推导式与文件系统
+# CATEGORY: 高级特性
 # 2025.09.05
 L = []
 for x in range(1,11):

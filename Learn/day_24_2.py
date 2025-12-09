@@ -1,5 +1,5 @@
-# TITLE: day24新文件
-# CATEGORY: 错误处理
+# TITLE: 错误处理2
+# CATEGORY: 错误、调试和测试
 # UnicodeError是ValueError的子类
 
 '''

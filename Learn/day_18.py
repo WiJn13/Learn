@@ -1,5 +1,5 @@
 # TITLE: 封装、私有属性与 getter/setter
-# CATEGORY: 面向对象·封装
+# CATEGORY: 面向对象编程
 class Student(object):
     def __init__(self,name,score):
         self.__name = name

@@ -1,5 +1,5 @@
-# TITLE: 元类，错误处理
-# CATEGORY: 元类，错误处理
+# TITLE: 使用元类，错误处理
+# CATEGORY: 面向对象高级编程
 # 2025.12.01
 def fn(self, name='world'): # 给的默认值是world
     print('Hello, %s.' % name)

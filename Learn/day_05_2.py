@@ -1,5 +1,5 @@
 # TITLE: match/case 与 for 循环
-# CATEGORY: 控制流与循环
+# CATEGORY: Python基础
 args = ['gcc', 'hello.c', 'world.c']
 # args = ['clean']
 # args = ['gcc']

@@ -1,5 +1,5 @@
 # TITLE: 使用元类
-# CATEGORY: 面向对象·元类
+# CATEGORY: 面向对象高级编程
 class Hello(object):
     def hello(self, name='world'):  # 设置函数参数默认值，等号前后不空格
         print('Hello, %s.' % name)

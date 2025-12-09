@@ -1,5 +1,5 @@
 # TITLE: 递归、尾递归与汉诺塔
-# CATEGORY: 递归与算法
+# CATEGORY: 函数
 # 2025.09.10
 
 def fact(n):    # factorial: 阶乘

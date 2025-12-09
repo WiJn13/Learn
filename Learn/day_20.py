@@ -1,5 +1,5 @@
 # TITLE: 动态方法绑定、MethodType 与 __slots__
-# CATEGORY: 面向对象·高级特性
+# CATEGORY: 面向对象高级编程
 class Student():
     pass
 s = Student()

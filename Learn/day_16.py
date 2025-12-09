@@ -1,5 +1,5 @@
 # TITLE: nonlocal 计数器闭包与 lambda
-# CATEGORY: 闭包与匿名函数
+# CATEGORY: 函数式编程
 # 2025.09.24
 # 使用闭包时，对外层变量赋值前，
 # 需要先使用nonlocal声明该变量不是当前函数的局部变量。
