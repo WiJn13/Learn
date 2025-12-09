@@ -1,5 +1,6 @@
-# TITLE：调试
+# TITLE：调试，单元测试
 # CATEGORY：错误、调试和测试
+# 2025.12.09
 from functools import reduce
 
 def str2num(s):
@@ -26,3 +27,4 @@ def foo(s):
     return 10 / n
 def main():
     foo('0')
+
