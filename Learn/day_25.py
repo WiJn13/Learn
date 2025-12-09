@@ -28,3 +28,4 @@ def foo(s):
 def main():
     foo('0')
 
+
