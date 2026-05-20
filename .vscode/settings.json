@@ -9,5 +9,7 @@
     "editor.acceptSuggestionOnCommitCharacter": false,
     "editor.acceptSuggestionOnEnter": "off",
     "editor.wordBasedSuggestions": "off",
-    "python.autoComplete.addBrackets": false
+    "python.autoComplete.addBrackets": false,
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python-envs.pythonProjects": []
 }
