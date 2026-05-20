@@ -1,4 +1,8 @@
+# TITLE: 继承与文件操作
+# CATEGORY: 面向对象编程
+# day_30.py
 # 继承
+
 # 创建一个Robot
 class Robot:
     def __init__(self, name):
@@ -6,7 +10,11 @@ class Robot:
     def say_hello(self):
         print(f"Hello, I'm {self.name}")
 
-# 继承：创建一个会飞的机器人，复用Robot的初始化逻辑
+# TITLE: 继承与文件操作
+# CATEGORY: 面向对象编程
+# day_30.py
+# 继承
+：创建一个会飞的机器人，复用Robot的初始化逻辑
 class FlyRobot(Robot):  # 声明继承自Robot
     def fly(self):
         print(f'{self.name} is now taking off!')

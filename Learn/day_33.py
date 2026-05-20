@@ -1,4 +1,7 @@
+# TITLE: 装饰器实战
+# CATEGORY: 函数进阶
 # Day 33: 装饰器实战练习
+
 import time
 from functools import wraps
 

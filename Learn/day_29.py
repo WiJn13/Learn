@@ -1,4 +1,7 @@
+# TITLE: 函数参数与作用域
+# CATEGORY: 函数进阶
 def greet(name):
+
     # name：[形式参数/形参]：变量名，相当于一个临时的“空位占位符/盒子”，不用加引号。
     print(f'Hello, {name}') 
 

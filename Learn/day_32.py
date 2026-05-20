@@ -1,4 +1,7 @@
+# TITLE: filter, zip 与字典推导式
+# CATEGORY: 函数进阶
 # day_32.py
+
 # 待练习知识点：
 # 1. filter() 的布尔过滤逻辑
 # 2. zip() 的并行迭代与木桶效应

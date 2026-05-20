@@ -1,4 +1,7 @@
-# 列表推导式
+# TITLE: 列表推导式
+# CATEGORY: 高级特性
+# day_31.py
+
 # [对x的操作 for x in 可迭代对象 if 条件（可选）]
 original = [1, 2, 3]
 new_list = [x*x for x in original]
