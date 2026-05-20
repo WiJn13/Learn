@@ -40,7 +40,16 @@
 25 - day_25.py [错误、调试和测试] 调试，单元测试
 26 - day_26.py [错误、测试和调试] 单元测试
 27 - day_27.py [重启] 重启
-28 - day_28.py [未分类]
+28 - day_28.py [重启] 重启
+29 - day_29.py [未分类]
+30 - day_30.py [未分类]
+31 - day_31.py [未分类]
+32 - day_32.py [未分类]
+33 - day_33.py [未分类]
+34 - day_34.py [未分类]
+35 - day_35.py [未分类]
+36 - day_36.py [未分类]
+37 - day_37.py [未分类]
 ```
 <!-- INDEX-END -->
 
@@ -85,6 +94,15 @@ Python/
 │     ├── day_26.py
 │     ├── day_27.py
 │     ├── day_28.py
+│     ├── day_29.py
+│     ├── day_30.py
+│     ├── day_31.py
+│     ├── day_32.py
+│     ├── day_33.py
+│     ├── day_34.py
+│     ├── day_35.py
+│     ├── day_36.py
+│     ├── day_37.py
 │
 │── autopush.py
 │── update_readme.py
