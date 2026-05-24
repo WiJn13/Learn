@@ -37,30 +37,31 @@ def is_allowed_file(path: Path) -> bool:
     if path.suffix.lower() not in ALLOWED_SUFFIXES:
         return False
 
+    # 排除隐藏/环境/工具目录
     if any(part in EXCLUDED_PARTS for part in path.parts):
         return False
 
-    if path.name in EXCLUDED_FILENAMES:
+    # scripts 是工具目录，不作为每日测验材料
+    if "scripts" in path.parts:
         return False
 
     if path.name == "today_quiz.md":
         return False
 
-    # 1. 优先读取 day_XX.py 这种每日学习文件
+    # 只读取 day_XX.py 这类学习文件
     if path.name.startswith("day_") and path.suffix.lower() == ".py":
         return True
 
-    # 2. 读取 README.md
+    # 读取 README
     if path.name == "README.md":
         return True
 
-    # 3. 读取 notes / note / 笔记 文件夹里的笔记
+    # 读取笔记目录
     if any(part in {"notes", "note", "笔记"} for part in path.parts):
         return True
 
-    # 4. 其他文件默认不读，避免工具脚本混进去
+    # 其他文件默认不读
     return False
-
 
 def collect_recent_files() -> list[Path]:
     files = []
