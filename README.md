@@ -50,6 +50,7 @@
 35 - day_35.py [函数进阶] 生成器与迭代器
 36 - day_36.py [面向对象编程] 面向对象编程基础
 37 - day_37.py [面向对象编程] 面向对象编程进阶
+38 - day_38.py [面向对象编程] 继承中的初始化参数传递
 ```
 <!-- INDEX-END -->
 
@@ -103,6 +104,7 @@ Python/
 │     ├── day_35.py
 │     ├── day_36.py
 │     ├── day_37.py
+│     ├── day_38.py
 │
 │── autopush.py
 │── update_readme.py

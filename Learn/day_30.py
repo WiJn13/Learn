@@ -4,7 +4,7 @@
 # 继承
 
 # 创建一个Robot
-class Robot:
+class Robot_2:
     def __init__(self, name):
         self.name = name
     def say_hello(self):
@@ -14,8 +14,8 @@ class Robot:
 # CATEGORY: 面向对象编程
 # day_30.py
 # 继承
-：创建一个会飞的机器人，复用Robot的初始化逻辑
-class FlyRobot(Robot):  # 声明继承自Robot
+# ：创建一个会飞的机器人，复用Robot的初始化逻辑
+class FlyRobot(Robot_2):  # 声明继承自Robot
     def fly(self):
         print(f'{self.name} is now taking off!')
 
@@ -31,23 +31,23 @@ eva = FlyRobot('NewEye')    # 标签重指向，原'SkyEye'已被摧毁
 new_id = id(eva)
 print(f'旧地址：{old_id} | 新地址：{new_id}')
 
-r1 = Robot('Mac')
+r1 = Robot_2('Mac')
 r2 = r1 # 相当于贴了两个标签，两个标签都指向'Mac'
 r2.name = 'Win'
 print(r1.name)  
 
 # 多态与模块化
-class Robot:
+class Robot_1:
     def __init__(self, name):
         self.name = name
     def work(self): # 父类定义一个通用概念
         raise NotImplementedError(f'子类必须实现work方法')
 
-class CleaningRobot(Robot):
+class CleaningRobot(Robot_1):
     def work(self):
         print(f'{self.name} 正在工作')
 
-class ServiceRobot(Robot):
+class ServiceRobot(Robot_1):
     def work(self):
         print(f'{self.name} 正在制作咖啡')
 
