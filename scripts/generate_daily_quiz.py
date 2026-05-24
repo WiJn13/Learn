@@ -24,7 +24,14 @@ EXCLUDED_PARTS = {
     "venv",
     "node_modules",
 }
-
+EXCLUDED_FILENAMES = {
+    "generate_daily_quiz.py",
+    "grade_issue_answer.py",
+    "batch_rename_modules.py",
+    "flag_days.py",
+    "generate_index.py",
+    "autopush.py",
+}
 
 def is_allowed_file(path: Path) -> bool:
     if path.suffix.lower() not in ALLOWED_SUFFIXES:
@@ -33,10 +40,26 @@ def is_allowed_file(path: Path) -> bool:
     if any(part in EXCLUDED_PARTS for part in path.parts):
         return False
 
+    if path.name in EXCLUDED_FILENAMES:
+        return False
+
     if path.name == "today_quiz.md":
         return False
 
-    return True
+    # 1. 优先读取 day_XX.py 这种每日学习文件
+    if path.name.startswith("day_") and path.suffix.lower() == ".py":
+        return True
+
+    # 2. 读取 README.md
+    if path.name == "README.md":
+        return True
+
+    # 3. 读取 notes / note / 笔记 文件夹里的笔记
+    if any(part in {"notes", "note", "笔记"} for part in path.parts):
+        return True
+
+    # 4. 其他文件默认不读，避免工具脚本混进去
+    return False
 
 
 def collect_recent_files() -> list[Path]:
