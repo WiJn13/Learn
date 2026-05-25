@@ -30,6 +30,25 @@ jobs:
           python -m pip install --upgrade pip
           pip install google-genai
 
+      - name: Get issue comments
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue_number = context.payload.issue.number;
+
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+              per_page: 100,
+            });
+
+            const text = comments.data.map((c, index) => {
+              return `--- 评论 ${index + 1}，作者：${c.user.login} ---\n${c.body}`;
+            }).join("\n\n");
+
+            core.exportVariable("ISSUE_COMMENTS", text);
+
       - name: Grade answer with Gemini
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
