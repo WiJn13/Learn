@@ -37,14 +37,14 @@ c = Animal()
 c.speak('猫')
 
 # 2. super()函数
-class Animal:
+class Animal1:
     def __init__(self, name):
         self.name = name
 
     def speak(self):
         print('所有动物都叫了。')
         
-class Dog(Animal):
+class Dog(Animal1):
     def __init__(self, name, breed):
         super().__init__(name)
         self.breed = breed
@@ -57,14 +57,14 @@ d = Dog('小小', '柴犬')
 print(d.breed)
 print(d.name)
 print(d.speak())    
-a = Animal('cat')
+a = Animal1('cat')
 print(a.speak())    
 a.speak()
 
-class Cat(Animal):
+class Cat(Animal1):
     def speak(self):
         print(f'{self.name}:喵~')
-class Duck(Animal):
+class Duck(Animal1):
     def speak(self):
         print(f'{self.name}:嘎嘎~')
 
@@ -78,12 +78,12 @@ for animal in animals:
     animal.speak()
 print('再吵记名字了')
 
-class Animal1:
+class Animal2:
     def __init__(self, name):
         self.name = name
     def eat(self):
         print(f'{self.name}正在吃东西')
-class Dog(Animal1):
+class Dog(Animal2):
     def eat(self):
         print(f'{self.name}正在闻一闻')
        
@@ -92,4 +92,6 @@ class Dog(Animal1):
 o = Dog('Anndy')
 o.eat()
 o.speak()
+
+
 

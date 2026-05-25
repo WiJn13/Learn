@@ -184,7 +184,7 @@ def main():
     prompt = build_prompt(materials)
 
     response = client.models.generate_content(
-        model="gemini-2.5-flash",
+        model="gemini-3.5-flash",
         contents=prompt,
     )
 
