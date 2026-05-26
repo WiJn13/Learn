@@ -51,6 +51,8 @@
 36 - day_36.py [面向对象编程] 面向对象编程基础
 37 - day_37.py [面向对象编程] 面向对象编程进阶
 38 - day_38.py [面向对象编程] 继承中的初始化参数传递
+39 - day_39_2.py [面向对象编程] 面向对象复习：组合与对象关系
+39 - day_39.py [面向对象编程] 面向对象复习：继承初始化与参数传递
 ```
 <!-- INDEX-END -->
 
@@ -105,13 +107,9 @@ Python/
 │     ├── day_36.py
 │     ├── day_37.py
 │     ├── day_38.py
+│     ├── day_39.py
+│     ├── day_39_2.py
 │
-│── autopush.py
-│── update_readme.py
-│── generate_index.py
-│── move_day_files.py
-│── originize_files.py
-│── batch_rename_modules.py
 │── README.md
 │── resources/
 │── images/

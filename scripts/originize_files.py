@@ -11,8 +11,13 @@ organize_files.py
 
 from pathlib import Path
 
+
+ROOT = Path(__file__).resolve().parents[1]
+SKIP_NAMES = {".gitignore", ".DS_Store"}
+SKIP_SUFFIXES = {".pyc"}
+
 def main():
-    root = Path(".")
+    root = ROOT
     resources = root / "resources"
     images = root / "images"
     misc = root / "misc"
@@ -24,7 +29,12 @@ def main():
     for f in root.iterdir():
         if not f.is_file():
             continue
-        if f.suffix == ".py" or f.name == "README.md":
+        if (
+            f.suffix == ".py"
+            or f.name == "README.md"
+            or f.name in SKIP_NAMES
+            or f.suffix.lower() in SKIP_SUFFIXES
+        ):
             continue
 
         ext = f.suffix.lower()

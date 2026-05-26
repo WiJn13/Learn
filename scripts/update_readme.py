@@ -26,7 +26,7 @@ def _replace_block(text: str, start_tag: str, end_tag: str, block: str) -> str:
     return before + start_tag + block + end_tag + after
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 LEARN = ROOT / "Learn"
 README = ROOT / "README.md"
 
