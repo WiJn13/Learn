@@ -7,6 +7,8 @@ from google import genai
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_FILE = ROOT / "today_quiz.md"
+PRIMARY_MODEL = "gemini-3.5-flash"
+FALLBACK_MODEL = "gemini-2.5-flash"
 
 # 你可以按需要调整
 MAX_FILES = 8
@@ -36,8 +38,12 @@ EXCLUDED_FILENAMES = {
 def is_allowed_file(path: Path) -> bool:
     relative_path = path.relative_to(ROOT)
 
-    # 只允许读取仓库根目录下的 day_XX.py
-    if relative_path.parent == Path(".") and path.name.startswith("day_") and path.suffix.lower() == ".py":
+    # 只允许读取仓库根目录或 Learn/ 下的 day_XX.py
+    if (
+        relative_path.parent in {Path("."), Path("Learn")}
+        and path.name.startswith("day_")
+        and path.suffix.lower() == ".py"
+    ):
         return True
 
     # 允许读取根目录 README.md
@@ -160,6 +166,24 @@ def build_prompt(materials: str) -> str:
 """
 
 
+def generate_content_with_fallback(client, prompt: str):
+    model = os.environ.get("GEMINI_MODEL") or PRIMARY_MODEL
+
+    try:
+        return client.models.generate_content(
+            model=model,
+            contents=prompt,
+        )
+    except Exception:
+        if model == FALLBACK_MODEL:
+            raise
+
+        return client.models.generate_content(
+            model=FALLBACK_MODEL,
+            contents=prompt,
+        )
+
+
 def main():
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
@@ -183,10 +207,7 @@ def main():
 
     prompt = build_prompt(materials)
 
-    response = client.models.generate_content(
-        model="gemini-3.5-flash",
-        contents=prompt,
-    )
+    response = generate_content_with_fallback(client, prompt)
 
     quiz_text = response.text or "Gemini没有返回内容，请检查API状态或模型名称。"
 

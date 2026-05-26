@@ -2,24 +2,25 @@ import os
 from google import genai
 
 
-GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
+PRIMARY_MODEL = "gemini-3.5-flash"
+FALLBACK_MODEL = "gemini-2.5-flash"
 
 ISSUE_TITLE = os.environ.get("ISSUE_TITLE", "")
 ISSUE_BODY = os.environ.get("ISSUE_BODY", "")
 COMMENT_BODY = os.environ.get("COMMENT_BODY", "")
 ISSUE_COMMENTS = os.environ.get("ISSUE_COMMENTS", "")
-            
+
 
 def detect_comment_type(comment_body: str) -> str:
     text = comment_body.strip()
 
-    if "## 巩固题答案" in text or "【巩固题答案】" in text:
+    if "巩固题回答" in text:
         return "consolidation_answer"
 
-    if "## 我的答案" in text or "【小测答案】" in text:
+    if "我的答案" in text or "小测答案" in text:
         return "quiz_answer"
 
-    if "## 追问" in text or "【追问】" in text:
+    if "追问" in text:
         return "follow_up"
 
     return "unknown"
@@ -58,7 +59,7 @@ def build_prompt() -> str:
 说明我的评论没有明确标记。
 请提醒我在评论开头加：
 - ## 我的答案
-- ## 巩固题答案
+- ## 巩固题回答
 - ## 追问
 
 回答要求：
@@ -103,7 +104,7 @@ def build_prompt() -> str:
 ## 一道巩固题
 ...
 
-回答巩固题时，请在评论开头写：## 巩固题答案
+回答巩固题时，请在评论开头写：## 巩固题回答
 
 如果是批改巩固题，输出格式：
 
@@ -118,7 +119,7 @@ def build_prompt() -> str:
 ## 下一道巩固题
 ...
 
-回答巩固题时，请在评论开头写：## 巩固题答案
+回答巩固题时，请在评论开头写：## 巩固题回答
 
 如果是追问，输出格式：
 
@@ -144,16 +145,33 @@ def build_prompt() -> str:
 """
 
 
+def generate_content_with_fallback(client, prompt: str):
+    model = os.environ.get("GEMINI_MODEL") or PRIMARY_MODEL
+
+    try:
+        return client.models.generate_content(
+            model=model,
+            contents=prompt,
+        )
+    except Exception:
+        if model == FALLBACK_MODEL:
+            raise
+
+        return client.models.generate_content(
+            model=FALLBACK_MODEL,
+            contents=prompt,
+        )
+
+
 def main():
-    if not GEMINI_API_KEY:
+    gemini_api_key = os.environ.get("GEMINI_API_KEY")
+
+    if not gemini_api_key:
         raise RuntimeError("缺少环境变量 GEMINI_API_KEY，请在GitHub Secrets里添加。")
 
-    client = genai.Client(api_key=GEMINI_API_KEY)
+    client = genai.Client(api_key=gemini_api_key)
 
-    response = client.models.generate_content(
-        model="gemini-3.5-flash",
-        contents=build_prompt(),
-    )
+    response = generate_content_with_fallback(client, build_prompt())
 
     result = response.text or "Gemini没有返回批改结果。"
 
