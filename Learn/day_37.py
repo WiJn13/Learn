@@ -44,7 +44,7 @@ class Animal1:
     def speak(self):
         print('所有动物都叫了。')
         
-class Dog(Animal1):
+class Dog_1(Animal1):
     def __init__(self, name, breed):
         super().__init__(name)
         self.breed = breed
@@ -53,7 +53,7 @@ class Dog(Animal1):
         print(f'{self.name}:汪汪~')
 
 
-d = Dog('小小', '柴犬')
+d = Dog_1('小小', '柴犬')
 print(d.breed)
 print(d.name)
 print(d.speak())    
@@ -70,7 +70,7 @@ class Duck(Animal1):
 
 print('\n')
 animals = [
-    Dog('小小','柴犬'),
+    Dog_1('小小','柴犬'),
     Cat('小贵'),
     Duck('鸭吉吉')
 ]
@@ -83,13 +83,13 @@ class Animal2:
         self.name = name
     def eat(self):
         print(f'{self.name}正在吃东西')
-class Dog(Animal2):
+class Dog_2(Animal2):
     def eat(self):
         print(f'{self.name}正在闻一闻')
        
     def speak(self):
         super().eat()
-o = Dog('Anndy')
+o = Dog_2('Anndy')
 o.eat()
 o.speak()
 
