@@ -9,6 +9,8 @@ ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_FILE = ROOT / "today_quiz.md"
 PRIMARY_MODEL = "gemini-3.5-flash"
 FALLBACK_MODEL = "gemini-2.5-flash"
+BEIJING_TZ = timezone(timedelta(hours=8))
+QUIZ_DATE_CUTOFF_HOUR = 6
 
 # 你可以按需要调整
 MAX_FILES = 8
@@ -110,10 +112,23 @@ def build_materials(files: list[Path]) -> str:
     return "\n".join(parts)
 
 
+def resolve_quiz_date(now_utc: datetime | None = None) -> str:
+    quiz_date = os.environ.get("QUIZ_DATE")
+    if quiz_date:
+        return quiz_date
+
+    if now_utc is None:
+        now_utc = datetime.now(timezone.utc)
+
+    beijing_time = now_utc.astimezone(BEIJING_TZ)
+    if beijing_time.hour < QUIZ_DATE_CUTOFF_HOUR:
+        beijing_time = beijing_time - timedelta(days=1)
+
+    return beijing_time.strftime("%Y-%m-%d")
+
+
 def build_prompt(materials: str) -> str:
-    # GitHub Actions服务器通常是UTC，这里转北京时间
-    beijing_time = datetime.now(timezone.utc) + timedelta(hours=8)
-    today = beijing_time.strftime("%Y-%m-%d")
+    today = resolve_quiz_date()
 
     return f"""
 你是我的Python学习测验助手。

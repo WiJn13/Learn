@@ -28,19 +28,20 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Check whether today's quiz issue already exists
+      - name: Check whether target quiz issue already exists
         id: existing_issue
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          DATE=$(TZ='Asia/Shanghai' date '+%Y-%m-%d')
-          TITLE="Python每日小测 - $DATE"
+          DATE=$(python -c "from datetime import datetime, timezone, timedelta; bj=datetime.now(timezone.utc) + timedelta(hours=8); print((bj.date() - (timedelta(days=1) if bj.hour < 6 else timedelta())).isoformat())")
+          TITLE="Python每日小测 - $DATE 21:40"
           EXISTING_TITLE=$(gh issue list --state all --search "$TITLE in:title" --json title --jq '.[].title' | grep -Fx "$TITLE" || true)
 
           echo "title=$TITLE" >> "$GITHUB_OUTPUT"
+          echo "quiz_date=$DATE" >> "$GITHUB_OUTPUT"
           if [ -n "$EXISTING_TITLE" ]; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
-            echo "Today's quiz issue already exists: $TITLE"
+            echo "Target quiz issue already exists: $TITLE"
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
@@ -56,6 +57,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          QUIZ_DATE: ${{ steps.existing_issue.outputs.quiz_date }}
         run: |
           python scripts/generate_daily_quiz.py
 
