@@ -250,12 +250,54 @@ class SingAction(ActionBase1):
     def do_action(self):
         print('too')
 class Robot1:
-    def __init__(self, action):
-        self.action = action
+    def __init__(self, action: ActionBase1):
+        self.action: ActionBase1 = action
     def work(self):
         self.action.do_action() # self.action.do_action 只是取到方法对象，没有真正执行
                                 # self.action.do_action() 才是调用方法
 b = CleanAction('s')
 c = SingAction('d')
-a = Robot1(c)
+a = Robot1(b)
 a.work()
+a.action = c
+a.work()
+
+class Weapon(ABC):
+    def __init__(self, job):
+        self.job = job
+    @abstractmethod
+    def attack(self):
+        pass
+class Sword(Weapon):
+
+    def attack(self):
+        print('挥剑')
+class Gun(Weapon):
+
+    def attack(self):
+        print('装弹中......')
+        print('瞄准')
+        print('射击')
+class MagicWand(Weapon):
+
+    def attack(self):
+        print('检测能量......')
+        print('远程施法')
+
+class GameCharacter:
+    def __init__(self, name, weapon):   # 参数名不要大写开头，大写开头是类名，这里只是小小的参数
+        self.name = name
+        self.weapon: Weapon = weapon
+    def attack(self):
+        print(f'{self.name}，职业是{self.weapon.job}，正在:')
+        self.weapon.attack()
+
+sword = Sword('swordman')
+gun = Gun('shooter')
+magic_wand = MagicWand('master')
+character = GameCharacter('Eben', sword)
+character.attack()
+character.weapon = gun
+character.attack()
+character.weapon = magic_wand
+character.attack()
