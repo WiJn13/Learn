@@ -269,17 +269,14 @@ class Weapon(ABC):
     def attack(self):
         pass
 class Sword(Weapon):
-
     def attack(self):
         print('挥剑')
 class Gun(Weapon):
-
     def attack(self):
         print('装弹中......')
         print('瞄准')
         print('射击')
 class MagicWand(Weapon):
-
     def attack(self):
         print('检测能量......')
         print('远程施法')
@@ -301,3 +298,5 @@ character.weapon = gun
 character.attack()
 character.weapon = magic_wand
 character.attack()
+
+
