@@ -2,8 +2,10 @@ name: Daily Python Quiz
 
 on:
   schedule:
-    # 北京时间每天晚上9:40 = UTC 13:40
-    - cron: "40 13 * * *"
+    # 北京时间 21:10 / 21:25 / 21:40 / 21:55 = UTC 13:10 / 13:25 / 13:40 / 13:55
+    - cron: "10,25,40,55 13 * * *"
+    # 北京时间 22:10 / 22:25 = UTC 14:10 / 14:25
+    - cron: "10,25 14 * * *"
 
   workflow_dispatch:
 
@@ -20,15 +22,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check whether scheduled run is ready
+        id: ready
+        run: |
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          NOW_UTC=$(date -u '+%H%M')
+          if [ "$NOW_UTC" -ge 1340 ] && [ "$NOW_UTC" -lt 2200 ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Check out repository
+        if: steps.ready.outputs.ready == 'true'
         uses: actions/checkout@v4
 
       - name: Set up Python
+        if: steps.ready.outputs.ready == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
       - name: Check whether target quiz issue already exists
+        if: steps.ready.outputs.ready == 'true'
         id: existing_issue
         env:
           GH_TOKEN: ${{ github.token }}
@@ -47,13 +67,13 @@ jobs:
           fi
 
       - name: Install dependencies
-        if: steps.existing_issue.outputs.exists != 'true'
+        if: steps.ready.outputs.ready == 'true' && steps.existing_issue.outputs.exists != 'true'
         run: |
           python -m pip install --upgrade pip
           pip install google-genai
 
       - name: Generate daily quiz with Gemini
-        if: steps.existing_issue.outputs.exists != 'true'
+        if: steps.ready.outputs.ready == 'true' && steps.existing_issue.outputs.exists != 'true'
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
@@ -62,7 +82,7 @@ jobs:
           python scripts/generate_daily_quiz.py
 
       - name: Create GitHub issue
-        if: steps.existing_issue.outputs.exists != 'true'
+        if: steps.ready.outputs.ready == 'true' && steps.existing_issue.outputs.exists != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
