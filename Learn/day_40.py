@@ -36,17 +36,18 @@ class Robot:
     count = 0
 
     def __init__(self, name, job):
-        self.name = name
-        if Robot.is_valid_job(job):
-            self._job = job
-        else:
-            self._job = 'unknown'
-        type(self).count += 1
+        self._name = name
+        self.job = job
+
 
     @property
     def job(self):
-        return self._job
+        return self.job
     
+    @property
+    def name(self):
+        return self.name
+
     def introduce(self):
         print(f'I am {self.name}, I can {self._job}')
 
