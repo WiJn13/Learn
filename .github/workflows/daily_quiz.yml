@@ -2,10 +2,10 @@ name: Daily Python Quiz
 
 on:
   schedule:
-    # 北京时间 21:10 / 21:25 / 21:40 / 21:55 = UTC 13:10 / 13:25 / 13:40 / 13:55
-    - cron: "10,25,40,55 13 * * *"
-    # 北京时间 22:10 / 22:25 = UTC 14:10 / 14:25
-    - cron: "10,25 14 * * *"
+    # 北京时间 19:30 / 19:45 = UTC 11:30 / 11:45
+    - cron: "30,45 11 * * *"
+    # 北京时间 20:00 / 20:15 / 20:30 = UTC 12:00 / 12:15 / 12:30
+    - cron: "0,15,30 12 * * *"
 
   workflow_dispatch:
 
@@ -31,7 +31,7 @@ jobs:
           fi
 
           NOW_UTC=$(date -u '+%H%M')
-          if [ "$NOW_UTC" -ge 1340 ] && [ "$NOW_UTC" -lt 2200 ]; then
+          if [ "$NOW_UTC" -ge 1130 ] && [ "$NOW_UTC" -lt 1530 ]; then
             echo "ready=true" >> "$GITHUB_OUTPUT"
           else
             echo "ready=false" >> "$GITHUB_OUTPUT"
@@ -54,7 +54,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           DATE=$(python -c "from datetime import datetime, timezone, timedelta; bj=datetime.now(timezone.utc) + timedelta(hours=8); print((bj.date() - (timedelta(days=1) if bj.hour < 6 else timedelta())).isoformat())")
-          TITLE="Python每日小测 - $DATE 21:40"
+          TITLE="Python每日小测 - $DATE 19:30"
           EXISTING_TITLE=$(gh issue list --state all --search "$TITLE in:title" --json title --jq '.[].title' | grep -Fx "$TITLE" || true)
 
           echo "title=$TITLE" >> "$GITHUB_OUTPUT"
