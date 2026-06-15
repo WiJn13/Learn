@@ -67,7 +67,7 @@ def test_update_product_price():
     def bad_update_product_price():
         day_44.update_product_price(products, 'no_exist', 16)
         day_44.update_product_price(products, 'goose', -1)
-    assert_raise_value_error(bad_update_product_price)
+    assert_raise_value_error(bad_update_product_price)  # 错误，不同的测试要分开写，第一行商品不存在已经raise ValueError，函数中断，不会执行第二行
 
 
 def test_count_products():
@@ -101,3 +101,5 @@ if __name__ == '__main__':
     test_update_product_price()
     test_count_products()
     test_find_product()
+    print('test pass')
+print(day_44.__name__)

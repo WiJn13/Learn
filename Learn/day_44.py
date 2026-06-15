@@ -38,7 +38,7 @@
 # 下面这些函数只负责“能力”。
 # 它们不应该自动执行，也不应该依赖某一次临时测试。
 def is_valid_price(price):
-    return isinstance(price, (int, float)) and price > 0
+    return isinstance(price, (int, float)) and price >= 0
 
 
 def add_product(products, name, price):
@@ -147,4 +147,4 @@ if __name__ == "__main__":
 # 这一步不是为了练异常本身。
 # 重点是看清楚：函数负责规则，main() 负责组织流程。
 # 相当于，函数部分负责规则，最后的一切都由一个main()来运行
-
+print(__name__)
