@@ -200,21 +200,17 @@
 
 import json
 import day_44
-products_1 = [{'name': 'fork', 'price': 24}, {'name': 'egg', 'price': 12}]
+
 def save_products(products, filename):
     with open(filename, 'w') as f:
         json.dump(products, f)
-save_products(products_1, 'test_day_48_2.json')
 
-def load_products(filename):
+
+def load_products_exist(filename):
     with open(filename, 'r') as f:
         result = json.load(f)
         return result
-a = load_products('test_day_48_2.json')
-print(a) 
-day_44.add_product(a, 'goose', 15)
-print(a)
-save_products(a, 'test_day_48_2.json')
+
 
 
 
@@ -226,3 +222,121 @@ save_products(a, 'test_day_48_2.json')
 #
 # 可选挑战：
 # - 思考：如果保存的是中文商品名，JSON 文件里应该尽量显示中文，还是显示转义字符？
+
+
+# ========================
+# Part 7：处理文件不存在的读取情况
+# ========================
+# 目标：
+# 让商品程序第一次运行、数据文件还不存在时，可以从空商品列表开始。
+#
+# 要求：
+# 1. 另外定义一个 load_products(filename)
+# 2. 尝试读取 filename 指向的 JSON 文件
+# 3. 只处理 FileNotFoundError
+# 4. 文件不存在时返回空列表
+# 5. 不要创建新的数据文件
+# 6. 不要使用会捕获所有异常的写法
+# 7. 保持现有的 load_products_exist() 不变
+#
+def load_products(filename):
+    try:
+        with open(filename, 'r') as f:
+            result = json.load(f)
+            return result
+    except FileNotFoundError:
+        return []
+
+def clean(products):
+    list_empty = []
+
+    for product in products:
+        n = product['name']
+        p = product['price']
+        try:
+            day_44.find_product(list_empty, n)
+        except ValueError:
+            day_44.add_product(list_empty, n, p)
+        else:
+            pass
+    return list_empty
+
+
+# 完成标准：
+# 1. 传入一个不存在的文件名时，函数返回空列表
+# 2. 调用结束后，那个不存在的文件仍然没有被创建
+# 3. 你能说明为什么这里只处理 FileNotFoundError
+# 4. 你能说明“没有历史数据”和“数据文件损坏”不是同一种情况
+#
+# 可选挑战：
+# - 思考：如果文件存在，但里面不是合法的 JSON，是否也应该返回空列表？为什么？应该报错，因为里面有东西，有无法读取的不合法的Json
+
+def main():
+    products_1 = [{'name': 'fork', 'price': 24}, {'name': 'egg', 'price': 12}, {'name': 'goose', 'price': 15}]
+    b = load_products('kk')
+    print(b)
+
+    for product in products_1:
+        n = product['name']
+        p = product['price']
+        try:
+            c = day_44.find_product(b, n)
+        except ValueError:
+            day_44.add_product(b, n, p)
+        else:
+            if c['price'] == p:
+                print('商品已存在')
+            else: c['price'] = p
+
+
+    new = clean(b)
+    save_products(new, 'kk')
+
+  
+
+'''
+    save_products(products_1, 'test_day_48_2.json')
+    a = load_products('test_day_48_2.json')
+    print(a) 
+
+    day_44.add_product(a, 'goose', 15)
+    print(a)
+    save_products(a, 'test_day_48_2.json')
+'''
+
+
+
+if __name__ == '__main__':
+    main()
+
+
+# ========================
+# Part 8：清理 JSON 文件里的重复商品
+# ========================
+# 目标：
+# - 写一个 clean(products) 函数，把传入列表中重复出现的商品整理成每个 name 只保留一条。
+#
+# 要求：
+# - 在 main() 中用 load_products('kk') 读取旧数据，再把读取到的列表传给 clean(...)
+# - 准备一个新的空列表，用来保存清理后的商品
+# - 遍历旧数据里的每个 product
+# - 判断重复时，先按 product['name'] 判断，而不是按整个 dict 判断
+# - 如果这个 name 第一次出现，就把这个商品保留下来
+# - 如果这个 name 已经出现过，就跳过这个重复商品
+# - clean(...) 返回清理后的新列表；由 main() 在全部处理完成后只调用一次 save_products(...) 保存结果
+# - 不要直接手动编辑 kk 文件完成这一步
+#
+# 完成标准：
+# - kk 中相同 name 的商品不会保留多条
+# - clean(...) 返回的数据仍然是 list，里面每个元素仍然是 dict
+# - 清理后再次运行 main()，不会继续增加重复的 goose / fork / egg
+# - 你能说清楚“旧数据”“清理后的新数据”“保存回文件”分别是哪一步
+#
+# 可选挑战：
+# - 如果同一个 name 出现多次但 price 不一样，思考应该保留第一次出现的价格，还是最后一次出现的价格。 # 按照逻辑，应该最后一个
+
+
+
+
+
+

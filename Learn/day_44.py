@@ -99,7 +99,7 @@ def main():
     print(total_price(products))
     clear_products(products)
     print(products)
-    
+    print(__name__)
 
 # Part 4：程序入口
 # 观察重点：
@@ -147,4 +147,4 @@ if __name__ == "__main__":
 # 这一步不是为了练异常本身。
 # 重点是看清楚：函数负责规则，main() 负责组织流程。
 # 相当于，函数部分负责规则，最后的一切都由一个main()来运行
-print(__name__)
+

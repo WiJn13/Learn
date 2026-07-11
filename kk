@@ -1,0 +1,1 @@
+[{"name": "goose", "price": 15}, {"name": "fork", "price": 24}, {"name": "egg", "price": 12}]
