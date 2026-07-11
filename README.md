@@ -61,6 +61,7 @@
 43 - day_43.py [面向对象编程] 面向对象复习：从“会写类”到“会拆对象”
 44 - day_44.py [模块化与代码组织] Python 工程化入门：main()、程序入口与模块复用
 48 - day_48_2.py [文件操作与数据保存] Python 工程化入门：JSON 文件持久化
+49 - day_49.py [文件操作与数据安全] JSON 数据结构校验
 ```
 <!-- INDEX-END -->
 
@@ -123,6 +124,7 @@ Python/
 │     ├── day_43.py
 │     ├── day_44.py
 │     ├── day_48_2.py
+│     ├── day_49.py
 │
 │── README.md
 │── resources/

@@ -24,4 +24,49 @@
 # - 你能说清“JSON 语法合法”和“数据结构符合程序约定”的区别。
 #
 # 可选挑战：
-# - 思考：最外层是 list，但里面某个元素不是 dict 时，程序还需要做什么检查？
+# - 思考：最外层是 list，但里面某个元素不是 dict 时，程序还需要做什么检查？ # 里面的每个元素得是dict
+
+import json
+def load_products(filename):
+    try: 
+        with open(filename, 'r') as f:
+            a = json.load(f)
+        if check(a):
+            return a
+        else:
+            raise ValueError('商品格式错误')
+    except FileNotFoundError:
+        print('文件不存在，已自动创建空列表')
+        return []
+
+
+def check(products):
+    if type(products) == list:
+        for product in products:
+            if type(product) == dict and 'name' in product and 'price' in product and type(product['name']) == str and isinstance(product['price'], (int, float)) and product['price'] >= 0 and type(product['price']) != bool:
+                pass
+            else: 
+                return False
+        return True
+    else:
+        return False
+
+
+
+
+def save_products(products, filename):
+    if check(products):
+        with open(filename, 'w') as f:
+            json.dump(products, f)
+
+def main():
+    a = load_products('Learn/nn.json')
+    print(a)
+
+    save_products(a, 'Learn/mm.json')
+    c = load_products('Learn/mm.json')
+    print(c)
+if __name__ == '__main__':
+    main()
+
+
