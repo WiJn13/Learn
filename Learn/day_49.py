@@ -58,6 +58,8 @@ def save_products(products, filename):
     if check(products):
         with open(filename, 'w') as f:
             json.dump(products, f)
+    else:
+        raise ValueError('商品格式错误，无法保存')
 
 def main():
     a = load_products('Learn/nn.json')
