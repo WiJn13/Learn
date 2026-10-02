@@ -27,57 +27,7 @@
 # 可选挑战：
 # - 让次数耗尽后的提示使用实际的 max_attempts，而不是固定写“三次”。
 # ========================
-import json
-def load_products(filename):
-    try: 
-        with open(filename, 'r') as f:
-            a = json.load(f)
-        if check(a):
-            return a
-        else:
-            raise ValueError('商品格式错误')
-    except FileNotFoundError:
-        print('文件不存在，已自动创建空列表')
-        return []
 
-def check(products):
-    if type(products) == list:
-        for product in products:
-            if type(product) == dict and 'name' in product and 'price' in product and type(product['name']) == str and isinstance(product['price'], (int, float)) and product['price'] >= 0 and type(product['price']) != bool:
-                pass
-            else: 
-                return False
-        return True
-    else:
-        return False
-
-def save_products(products, filename):
-    if check(products):
-        with open(filename, 'w') as f:
-            json.dump(products, f)
-    else:
-        raise ValueError('商品格式错误，无法保存')
-    
-def delete_product(products, name):
-    if check(products):
-        for i in products:
-            if i['name'] == name:
-                products.remove(i)
-                return i
-        else:
-            raise ValueError('未找到商品')      
-    else:
-        raise ValueError('商品列表不合法')
-
-def find_product(products, name):
-    if check(products):
-        for i in products:
-            if i['name'] == name:
-                return i
-        else:
-            raise ValueError('商品不存在')
-    else:
-        raise ValueError('商品不合法')
 
 
 def ask_confirmation(target, max_attempts=3, input_func = input):
@@ -116,6 +66,15 @@ def test_attempts():
     assert result_4 == True
     assert answers == []
 
+def test_attempts_e():
+    answers = ['无效输入1', '无效输入2', '无效输入3']
+    def fake_input(prompt):
+        return answers.pop(0)
+    target = {'name': 'jacky', 'price': 86}
+    result_4 = ask_confirmation(target, 3, fake_input)
+    assert result_4 == False
+    assert answers == []
+
 def main():
     target = {'name': 'jack', 'price': 28}
     if target:
@@ -141,8 +100,10 @@ def main():
                 print('--- 测试结束--- \n')
         else:
             raise ValueError('测试数量不合法')
-    a = test_attempts()
-    print(a)
+    test_attempts()
+
+    test_attempts_e()
+
 
 
         
