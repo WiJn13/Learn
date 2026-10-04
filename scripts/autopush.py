@@ -14,7 +14,6 @@ autopush.py
 """
 
 from pathlib import Path
-import re
 import subprocess
 import sys
 
@@ -65,13 +64,6 @@ def stage_included_changes(changes):
     run_cmd(["git", "add", "--", *paths], cwd=ROOT)
 
 
-def parse_day_number(name: str):
-    match = re.search(r"day_(\d+)(?:_(\d+))?\.py$", name)
-    if not match:
-        return (-1, -1)
-    return (int(match.group(1)), int(match.group(2) or 0))
-
-
 def read_title(path: Path) -> str:
     try:
         for line in path.read_text(encoding="utf-8").splitlines()[:20]:
@@ -83,23 +75,23 @@ def read_title(path: Path) -> str:
 
 
 def generate_commit_message(changes) -> str:
-    """根据最新 Learn/day_*.py 生成默认提交说明。"""
+    """根据最近修改的学习主题生成默认提交说明。"""
     learn_files = []
     for line in changes:
         path = line[3:]
         p = Path(path)
-        if len(p.parts) == 2 and p.parts[0] == "Learn" and p.name.startswith("day_") and p.suffix == ".py":
-            learn_files.append(p)
+        if len(p.parts) == 2 and p.parts[0] == "Learn" and p.suffix == ".py":
+            if (ROOT / p).is_file():
+                learn_files.append(p)
 
     if not learn_files:
         return "Update Python learning notes"
 
-    latest = max(learn_files, key=lambda p: parse_day_number(p.name))
-    day_num = parse_day_number(latest.name)[0]
+    latest = max(learn_files, key=lambda p: ((ROOT / p).stat().st_mtime_ns, p.name))
     title = read_title(ROOT / latest)
     if title:
-        return f"Day {day_num}: {title}"
-    return f"Day {day_num}: Python 学习记录"
+        return f"学习：{title}"
+    return f"学习：{latest.stem}"
 
 
 def main():

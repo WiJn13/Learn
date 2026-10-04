@@ -5,16 +5,16 @@
 update_readme.py
 
 功能：
-1. 扫描 Learn/ 目录下的 day_*.py 文件
+1. 扫描 Learn/ 目录下的 主题命名的 .py 文件
 2. 读取每个文件的 TITLE / CATEGORY 注释
 3. 生成简单索引文本，例如：
-   01 - day_01.py [基础语法] 输入、变量和简单函数
+   01 - _01_input_variables.py [基础语法] 输入、变量和简单函数
 4. 自动替换 README.md 中 <!-- INDEX-START --> 和 <!-- INDEX-END --> 之间的内容
 """
 
 
 from pathlib import Path
-import re
+import json
 
 
 # Helper to replace a block between start_tag and end_tag in text
@@ -31,62 +31,32 @@ LEARN = ROOT / "Learn"
 README = ROOT / "README.md"
 
 
-def parse_day_file(path: Path):
-    """
-    从 day_xx.py 文件中解析：
-    - 编号 num（int）
-    - TITLE（可选）
-    - CATEGORY（可选）
-    """
-    m = re.search(r"day_(\d+)", path.name)
-    if not m:
-        return None
-    num = int(m.group(1))
-
+def parse_learning_file(path: Path):
+    """读取学习文件中的 TITLE / CATEGORY，不依赖文件名中的编号。"""
     title = ""
     category = ""
-
-    try:
-        with path.open("r", encoding="utf-8") as f:
-            # 只看前几十行就够了
-            for _ in range(30):
-                line = f.readline()
-                if not line:
-                    break
-                line = line.strip()
-                if line.startswith("# TITLE:"):
-                    title = line.replace("# TITLE:", "").strip()
-                elif line.startswith("# CATEGORY:"):
-                    category = line.replace("# CATEGORY:", "").strip()
-    except Exception:
-        pass
-
-    if not category:
-        category = "未分类"
-
-    return {
-        "num": num,
-        "filename": path.name,
-        "title": title,
-        "category": category,
-    }
+    for line in path.read_text(encoding="utf-8").splitlines()[:30]:
+        line = line.strip()
+        if line.startswith("# TITLE:"):
+            title = line.removeprefix("# TITLE:").strip()
+        elif line.startswith("# CATEGORY:"):
+            category = line.removeprefix("# CATEGORY:").strip()
+    return {"filename": path.name, "title": title, "category": category or "未分类"}
 
 
 def collect_items():
-    """收集 Learn/ 目录下的所有 day_*.py 信息"""
+    """按独立的学习顺序收集文件；新文件未登记时也会出现在目录中。"""
     if not LEARN.exists():
-        print("未找到 Learn/ 目录，请确认项目结构。")
         return []
-
+    order_path = LEARN / "learning_order.json"
+    order = json.loads(order_path.read_text(encoding="utf-8")) if order_path.exists() else []
+    positions = {name: index for index, name in enumerate(order)}
+    files = sorted(LEARN.glob("*.py"), key=lambda p: (positions.get(p.name, len(order)), p.name))
     items = []
-    for f in LEARN.iterdir():
-        if f.is_file() and f.name.startswith("day_") and f.suffix == ".py":
-            info = parse_day_file(f)
-            if info:
-                items.append(info)
-
-    # 按编号排序
-    items.sort(key=lambda x: x["num"])
+    for num, path in enumerate(files, 1):
+        info = parse_learning_file(path)
+        info["num"] = num
+        items.append(info)
     return items
 
 
@@ -96,13 +66,13 @@ def render_index_block(items):
     形式如下：
 
     ```text
-    01 - day_01.py [基础语法] 输入、变量和简单函数
-    02 - day_02.py [字符串与序列] 字符串操作与进制转换
+    01 - _01_input_variables.py [基础语法] 输入、变量和简单函数
+    02 - _02_strings_base_conversion.py [字符串与序列] 字符串操作与进制转换
     ...
     ```
     """
     if not items:
-        return "\n（当前没有检测到任何 day_*.py 文件）\n"
+        return "\n（当前没有检测到任何 主题命名的 .py 文件）\n"
 
     lines = []
     lines.append("")
@@ -135,29 +105,21 @@ def build_tree_block() -> str:
     # Learn 目录
     if LEARN.exists():
         lines.append("│── Learn/")
-        day_files = [f.name for f in LEARN.iterdir() if f.is_file() and f.name.startswith("day_")]
-        for name in sorted(day_files):
+        learning_files = [f.name for f in LEARN.iterdir() if f.is_file() and f.suffix in {".py", ".json"}]
+        for name in sorted(learning_files):
             lines.append(f"│     ├── {name}")
         lines.append("│")
 
-    # 顶层脚本
-    top_scripts = [
-        "autopush.py",
-        "update_readme.py",
-        "generate_index.py",
-        "move_day_files.py",
-        "originize_files.py",
-        "batch_rename_modules.py",
-        "calculate_days_lived.py",
-        "README.md",
-    ]
-
-    for script in top_scripts:
-        if (ROOT / script).exists():
-            lines.append(f"│── {script}")
+    if (ROOT / "scripts").exists():
+        lines.append("│── scripts/")
+        for path in sorted((ROOT / "scripts").glob("*.py")):
+            lines.append(f"│     ├── {path.name}")
+    for name in ["AGENTS.md", "README.md"]:
+        if (ROOT / name).exists():
+            lines.append(f"│── {name}")
 
     # 资源类目录
-    for dirname in ["resources", "images", "misc"]:
+    for dirname in ["resources", "images", "misc", "plans"]:
         if (ROOT / dirname).exists():
             lines.append(f"│── {dirname}/")
 

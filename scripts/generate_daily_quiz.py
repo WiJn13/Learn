@@ -40,10 +40,10 @@ EXCLUDED_FILENAMES = {
 def is_allowed_file(path: Path) -> bool:
     relative_path = path.relative_to(ROOT)
 
-    # 只允许读取仓库根目录或 Learn/ 下的 day_XX.py
+    # 只读取仓库根目录或 Learn/ 下的学习 Python 文件
     if (
         relative_path.parent in {Path("."), Path("Learn")}
-        and path.name.startswith("day_")
+        and path.name not in EXCLUDED_FILENAMES
         and path.suffix.lower() == ".py"
     ):
         return True

@@ -36,12 +36,6 @@ def make_safe_module_name(name: str) -> str:
     # 合并连续下划线并去掉首尾下划线
     s = re.sub(r"_+", "_", s)
     s = s.strip("_")
-    # 仅补齐第一个数字段（例如 Day 5（1） -> 5 补齐为 05，括号内 1 不补齐）
-    number_iter = list(re.finditer(r"\d+", s))
-    if number_iter:
-        first = number_iter[0]
-        padded = first.group().zfill(2)
-        s = s[:first.start()] + padded + s[first.end():]
     # 不能以数字开头
     if re.match(r"^[0-9]", s):
         s = "_" + s
