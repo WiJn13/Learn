@@ -1,6 +1,6 @@
 # TITLE: 继承中的初始化参数传递
 # CATEGORY: 面向对象编程
-# _40_inheritance_initialization.py
+# 40_inheritance_initialization.py
 
 
 class Animal:

@@ -1,6 +1,6 @@
 # TITLE: 面向对象复习：类属性、类方法与静态方法
 # CATEGORY: 面向对象编程
-# _43_class_static_methods.py
+# 43_class_static_methods.py
 
 
 # 今日目标：

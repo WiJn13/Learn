@@ -1,6 +1,6 @@
 # TITLE: 面向对象复习：从“会写类”到“会拆对象”
 # CATEGORY: 面向对象编程
-# _46_orders_payment_composition.py
+# 46_orders_payment_composition.py
 
 
 # 今日判断：
@@ -12,7 +12,7 @@
 # 5. 继承、super()、方法重写
 # 6. 多态、组合、鸭子类型、ABC
 #
-# _46_orders_payment_composition 不继续重复“单个类怎么写”。
+# 46_orders_payment_composition 不继续重复“单个类怎么写”。
 # 今天重点练：看到一个小需求时，怎么判断哪些东西应该是类，哪些适合继承，哪些适合组合。
 
 
@@ -189,7 +189,7 @@ class Order:
 #
 # 观察重点：
 # 同一个 order.checkout()，因为 payment_method 换了，实际支付行为也会变。
-# 这和 _42_composition_object_relationships 里 Robot 换 Job 对象是同一个思想。
+# 这和 42_composition_object_relationships 里 Robot 换 Job 对象是同一个思想。
 fish = Product('fish', 13)
 fork = Product('fork', 10)
 a = Order('wang')

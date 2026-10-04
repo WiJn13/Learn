@@ -1,19 +1,19 @@
 # TITLE: 安全新增商品
 # CATEGORY: 文件操作与数据安全
-# _55_safe_product_addition.py
+# 55_safe_product_addition.py
 
 
 # ========================
 # Part 1：读取、修改、再保存
 # ========================
 # 目标：
-# - 把 _54_json_product_validation 已完成的“读取校验”和“保存校验”连成一次真实的数据更新。
+# - 把 54_json_product_validation 已完成的“读取校验”和“保存校验”连成一次真实的数据更新。
 # - 理解：程序要先把文件中的列表读进内存，修改这个列表，最后才保存回文件。
 #
 # 要求：
-# - 从 _54_json_product_validation.py 复用已经验证过的 load_products()、check() 和 save_products()。
+# - 从 54_json_product_validation.py 复用已经验证过的 load_products()、check() 和 save_products()。
 # - 新建 add_product(products, name, price)：在内存中的 products 列表新增一件商品。
-# - 新增前先检查 name 和 price 是否符合 _54_json_product_validation 的商品规则；不符合时抛出 ValueError。
+# - 新增前先检查 name 和 price 是否符合 54_json_product_validation 的商品规则；不符合时抛出 ValueError。
 # - 新增成功后，再由 main() 调用 save_products() 保存到另一个 JSON 文件。
 # - 不要直接把新商品写进文件；先完成列表修改，再统一保存。
 # - 价格 0 仍然是合法值，bool 不能当作价格。

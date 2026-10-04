@@ -4,7 +4,7 @@
 
 
 # 今日判断：
-# _47_product_manager 已经完成了一个关键转变：
+# 47_product_manager 已经完成了一个关键转变：
 # 以前重点是“把代码写出来并运行”。
 # 现在开始练“代码能不能被别人 import、复用、测试”。
 #
@@ -20,7 +20,8 @@
 # 4. 继续巩固 import 模块时不会自动执行 main()
 
 
-import _47_product_manager
+import importlib
+product_manager = importlib.import_module("47_product_manager")
 import pytest
 
 # Part 1：assert 的核心规则
@@ -43,12 +44,12 @@ def make_products():
     ]
 # Part 2：一个测试函数的三步
 # 1. 准备数据：准备 products
-# 2. 执行行为：调用 _47_product_manager.add_product(...)
+# 2. 执行行为：调用 47_product_manager.add_product(...)
 # 3. 验证结果：用 assert 判断 products 是否变成预期状态
 def test_add_product_behavior():
     products = []
 
-    _47_product_manager.add_product(products, "apple", 6)
+    product_manager.add_product(products, "apple", 6)
 
     assert products == [
         {"name": "apple", "price": 6}
@@ -61,13 +62,13 @@ def test_add_product_behavior():
 def test_total_price_return_value():
     products = make_products()
 
-    result = _47_product_manager.total_price(products)
+    result = product_manager.total_price(products)
 
     assert result == 38
 
 def test_total_price_returns_0_for_empty_list():
     products = []
-    result = _47_product_manager.total_price(products)
+    result = product_manager.total_price(products)
     assert result == 0
 
 # Part 4：测试异常
@@ -78,7 +79,7 @@ def test_total_price_returns_0_for_empty_list():
 
 def test_add_product_for_zero_price():
     products = make_products()
-    _47_product_manager.add_product(products, 'milk', 0)
+    product_manager.add_product(products, 'milk', 0)
     expected = make_products()
     expected.append({'name': 'milk', 'price': 0})
     assert products == expected
@@ -89,15 +90,15 @@ def test_add_product_invalid_price():
     products = []
 
     with pytest.raises(ValueError):
-        _47_product_manager.add_product(products, 'goose', -3)
+        product_manager.add_product(products, 'goose', -3)
 
 
 # Part 5：为什么错误场景要拆开
 # 如果一个函数里连续写两个会报错的操作：
 #
 # def bad_case():
-#     _47_product_manager.update_product_price(products, "no_exist", 16)
-#     _47_product_manager.update_product_price(products, "goose", -1)
+#     47_product_manager.update_product_price(products, "no_exist", 16)
+#     47_product_manager.update_product_price(products, "goose", -1)
 #
 # 第一行一旦 raise ValueError，函数会立刻中断。
 # 第二行根本不会执行。
@@ -109,7 +110,7 @@ def test_update_product_price_missing_product():
     products = make_products()
 
     with pytest.raises(ValueError):
-        _47_product_manager.update_product_price(products, 'no_exist', 15)
+        product_manager.update_product_price(products, 'no_exist', 15)
 
 
 def test_update_product_price_invalid_price():
@@ -118,30 +119,30 @@ def test_update_product_price_invalid_price():
     ]
 
     with pytest.raises(ValueError):
-        _47_product_manager.update_product_price(products, 'goose', -1)
+        product_manager.update_product_price(products, 'goose', -1)
 
 def test_count_products():
     products = make_products()
 
-    result = _47_product_manager.count_products(products)
+    result = product_manager.count_products(products)
     assert result == 2
     assert products == make_products()
 
 def test_count_products_returns_zero_for_empty_products():
     products = []
-    result = _47_product_manager.count_products(products)
+    result = product_manager.count_products(products)
     assert result == 0
 
 def test_find_product_found():
     products = make_products()
-    result = _47_product_manager.find_product(products, 'goose')
+    result = product_manager.find_product(products, 'goose')
     assert result == {'name': 'goose', 'price': 13}
     assert products == make_products()
     
 def test_find_product_no_found():
     products = make_products()
     with pytest.raises(ValueError):
-        _47_product_manager.find_product(products, 'milk')
+        product_manager.find_product(products, 'milk')
     assert products == make_products()
 
 # Part 6：main() 只负责临时运行这些测试
@@ -170,11 +171,11 @@ def test_find_product_no_found():
 # 一个测试最好只验证一个明确场景。
 # 否则前一个错误已经中断函数，后一个错误其实没有被测到。
 #
-# 4. test_49_product_behavior import _47_product_manager 时，为什么不会自动执行 _47_product_manager.main()？
-# 我的回答：因为_47_product_manager的main()的执行条件是__name__ == __main__，但是导入的_47_product_manager的__name__是_47_product_manager，现在的test_49_product_behavior才是__main__
+# 4. test_49_product_behavior import 47_product_manager 时，为什么不会自动执行 47_product_manager.main()？
+# 我的回答：因为47_product_manager的main()的执行条件是__name__ == __main__，但是导入的47_product_manager的__name__是47_product_manager，现在的test_49_product_behavior才是__main__
 # 批改：✅ 对，核心逻辑已经说清楚了。
-# 更标准地写是：_47_product_manager 被 import 时，_47_product_manager 里的 __name__ 是 "_47_product_manager"。
-# 所以 _47_product_manager.py 里的 if __name__ == "__main__": 条件不成立，main() 不会自动执行。
+# 更标准地写是：47_product_manager 被 import 时，47_product_manager 里的 __name__ 是 "47_product_manager"。
+# 所以 47_product_manager.py 里的 if __name__ == "__main__": 条件不成立，main() 不会自动执行。
 
 
 

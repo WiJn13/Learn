@@ -1,6 +1,6 @@
 # TITLE: 面向对象复习：组合与对象关系
 # CATEGORY: 面向对象编程
-# _42_composition_object_relationships.py
+# 42_composition_object_relationships.py
 
 
 # 今日目标：

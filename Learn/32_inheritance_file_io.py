@@ -1,6 +1,6 @@
 # TITLE: 继承与文件操作
 # CATEGORY: 面向对象编程
-# _32_inheritance_file_io.py
+# 32_inheritance_file_io.py
 # 继承
 
 # 创建一个Robot
@@ -12,7 +12,7 @@ class Robot_2:
 
 # TITLE: 继承与文件操作
 # CATEGORY: 面向对象编程
-# _32_inheritance_file_io.py
+# 32_inheritance_file_io.py
 # 继承
 # ：创建一个会飞的机器人，复用Robot的初始化逻辑
 class FlyRobot(Robot_2):  # 声明继承自Robot

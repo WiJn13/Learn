@@ -1,13 +1,13 @@
 # TITLE: 面向对象复习：继承初始化与参数传递
 # CATEGORY: 面向对象编程
-# _41_inheritance_initialization_review.py
+# 41_inheritance_initialization_review.py
 
 
 # 今日目标：
 # 1. 复习子类 __init__ 和父类 __init__ 的关系
 # 2. 练习 super().__init__(...) 的参数传递
 # 3. 区分普通参数、*args、**kwargs 的使用场景
-# 4. 复盘 _40_inheritance_initialization 中容易混淆的位置：self、参数顺序、关键字参数
+# 4. 复盘 40_inheritance_initialization 中容易混淆的位置：self、参数顺序、关键字参数
 
 
 # Part 1：普通参数版本
@@ -102,7 +102,7 @@ print(c.colour)
 # 1. 能独立写出普通参数版本
 # 2. 能解释 *args 是怎么被转交给父类的
 # 3. 能解释 **kwargs 为什么不依赖参数顺序
-# 4. 能用 Part 4 的顺序检查 _40_inheritance_initialization 里的问题
+# 4. 能用 Part 4 的顺序检查 40_inheritance_initialization 里的问题
 
 
 # Part 6：类属性、实例属性、类方法、静态方法

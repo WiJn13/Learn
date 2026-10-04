@@ -1,6 +1,6 @@
 # TITLE: filter, zip 与字典推导式
 # CATEGORY: 函数进阶
-# _34_filter_zip_dict_comprehensions.py
+# 34_filter_zip_dict_comprehensions.py
 
 # 待练习知识点：
 # 1. filter() 的布尔过滤逻辑

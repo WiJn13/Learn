@@ -1,11 +1,11 @@
 # TITLE: 面向对象进阶：继承、封装与多态综合练习
 # CATEGORY: 面向对象编程
-# _45_account_inheritance.py
+# 45_account_inheritance.py
 
 
 # 今日判断：
 # 你已经连续练过类属性、类方法、静态方法、@property、setter、自定义异常。
-# _45_account_inheritance 不继续重复单个 setter，而是把它们放进继承场景里综合使用。
+# 45_account_inheritance 不继续重复单个 setter，而是把它们放进继承场景里综合使用。
 
 
 # 今日目标：

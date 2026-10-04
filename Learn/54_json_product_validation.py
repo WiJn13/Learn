@@ -1,6 +1,6 @@
 # TITLE: JSON 数据结构校验
 # CATEGORY: 文件操作与数据安全
-# _54_json_product_validation.py
+# 54_json_product_validation.py
 
 
 # ========================
@@ -10,7 +10,7 @@
 # - 让 load_products() 区分“文件不存在”和“JSON 结构不符合商品程序的要求”。
 #
 # 要求：
-# - 参考 _53_json_product_storage.py 里现有的 load_products()，在本文件中定义新版本。
+# - 参考 53_json_product_storage.py 里现有的 load_products()，在本文件中定义新版本。
 # - 在 json.load() 读取完成后、返回数据前，检查最外层数据是否为 list。
 # - 如果最外层是 list，正常返回读取结果。
 # - 如果最外层不是 list，主动抛出 ValueError。

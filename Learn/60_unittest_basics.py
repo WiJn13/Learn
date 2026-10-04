@@ -1,24 +1,24 @@
 # TITLE: 使用 unittest 组织自动测试
 # CATEGORY: 标准库、测试类与测试方法
-# _60_unittest_basics.py
+# 60_unittest_basics.py
 
 
 # ========================
 # Part 1：认识 unittest 的测试类
 # ========================
 # 目标：
-# - 把 _59_confirmation_test_runner 的手写 assert 测试，交给 Python 标准库 unittest 统一发现和运行。
+# - 把 59_confirmation_test_runner 的手写 assert 测试，交给 Python 标准库 unittest 统一发现和运行。
 # - 理解：测试类用于归类测试；测试方法用于描述并验证一种具体行为。
 #
 # 要求：
-# - 从 _59_confirmation_test_runner 复用 ask_confirmation()；本阶段仍不使用真实 input()，也不读写商品文件。
+# - 从 59_confirmation_test_runner 复用 ask_confirmation()；本阶段仍不使用真实 input()，也不读写商品文件。
 # - 导入 unittest。它是 Python 自带的标准库，不需要安装。
 # - 新建一个测试类，让它继承 unittest.TestCase。
 # - 类名自行命名，但应能表达它测试的是确认流程；类名使用 PascalCase（每个英文单词首字母大写）。
 # - 在类中建立第一个测试方法，方法名必须以 test_ 开头。
 # - 用局部 answers 列表和一个局部假输入函数，测试输入 y 时 ask_confirmation() 返回 True。
 # - 使用测试对象提供的相等检查方法判断实际结果与预期结果；不要继续使用普通 assert。
-# - 文件末尾加入 unittest 的测试运行入口，使直接运行 _60_unittest_basics.py 时可以执行测试。
+# - 文件末尾加入 unittest 的测试运行入口，使直接运行 60_unittest_basics.py 时可以执行测试。
 # ========================
 
 
@@ -36,7 +36,7 @@
 # - 使用 self.assertEqual() 检查 result 是否等于 False，并附带失败提示信息。
 #
 # 完成标准：
-# - 直接运行 _60_unittest_basics.py 时，unittest 报告运行了 2 项测试并显示 OK。
+# - 直接运行 60_unittest_basics.py 时，unittest 报告运行了 2 项测试并显示 OK。
 # - 你能说明为什么新增测试方法不需要修改主程序函数 ask_confirmation()。
 # ========================
 
@@ -54,7 +54,7 @@
 # - 修改 test_y 和 test_n，使其通过 self.target 访问测试对象。
 #
 # 完成标准：
-# - 直接运行 _60_unittest_basics.py 时，unittest 报告运行了 2 项测试并显示 OK。
+# - 直接运行 60_unittest_basics.py 时，unittest 报告运行了 2 项测试并显示 OK。
 # - 你能说明 setUp() 是在什么时候被调用的，以及它为什么能避免代码重复。
 # ========================
 
@@ -120,7 +120,7 @@ if __name__ == '__main__':
 # Part 4：用测试暴露无效输入后的重试问题
 # ========================
 # 目标：
-# - 把 _58_testable_confirmation、_59_confirmation_test_runner 已经测试过的“先无效、后确认”场景迁移到 unittest。
+# - 把 58_testable_confirmation、59_confirmation_test_runner 已经测试过的“先无效、后确认”场景迁移到 unittest。
 # - 理解：测试不只是证明代码正确，也能暴露实际运行流程与预期不一致的位置。
 #
 # 要求：

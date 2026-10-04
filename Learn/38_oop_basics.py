@@ -1,6 +1,6 @@
 # TITLE: 面向对象编程基础
 # CATEGORY: 面向对象编程
-# _38_oop_basics.py
+# 38_oop_basics.py
 
 
 # 核心复习内容：面向对象编程 (OOP) 基础

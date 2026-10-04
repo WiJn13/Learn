@@ -34,7 +34,7 @@ name = (2, 3)
 # 正确方式一：老老实实把元组里的元素按索引取出来，作为参数传进去
 print(new_add(name[0], name[1])) # 5
 
-# 正确方式二：利用神奇的 * 号进行“解包”（你在 _09_default_variadic_arguments 学过的技巧），直接把元组拆开塞进函数
+# 正确方式二：利用神奇的 * 号进行“解包”（你在 09_default_variadic_arguments 学过的技巧），直接把元组拆开塞进函数
 print(new_add(*name)) # 5
 
 print('\n--- 补充：如果我非要用 .new_add() 呢？ ---')

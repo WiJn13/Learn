@@ -1,6 +1,6 @@
 # TITLE: 面向对象编程进阶
 # CATEGORY: 面向对象编程
-# _39_inheritance_polymorphism.py
+# 39_inheritance_polymorphism.py
 
 
 # 核心复习内容：面向对象编程 (OOP) 进阶

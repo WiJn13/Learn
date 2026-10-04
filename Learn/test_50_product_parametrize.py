@@ -17,7 +17,8 @@
 # 4. 暂时不把正常返回和异常场景硬合并
 
 
-import _47_product_manager
+import importlib
+product_manager = importlib.import_module("47_product_manager")
 import pytest
 
 
@@ -48,7 +49,7 @@ def make_products():
     ],
 )
 def test_total_price_with_many_cases(products, expected):
-    result = _47_product_manager.total_price(products)
+    result = product_manager.total_price(products)
 
     assert result == expected
 
@@ -73,7 +74,7 @@ def test_total_price_with_many_cases(products, expected):
     ids=['whole_products', 'empty_list', 'one_product', 'two_products']
 )
 def test_count_products_with_many_cases(products, expected):
-    result = _47_product_manager.count_products(products)
+    result = product_manager.count_products(products)
 
     assert result == expected
 
@@ -95,7 +96,7 @@ def test_count_products_with_many_cases(products, expected):
 def test_add_product_valid_price_cases(name, price, expected_product):
     products = []
 
-    _47_product_manager.add_product(products, name, price)
+    product_manager.add_product(products, name, price)
 
     assert products == [expected_product]
 
@@ -105,7 +106,7 @@ def test_add_product_invalid_price_cases(price):
     products = []
 
     with pytest.raises(ValueError):
-        _47_product_manager.add_product(products, "bad_product", price)
+        product_manager.add_product(products, "bad_product", price)
 
 
 # Part 4：你来判断
@@ -139,7 +140,7 @@ def test_add_product_invalid_price_cases(price):
 
 def test_find_product_found(name, expected):
     products = make_products()
-    result = _47_product_manager.find_product(products, name)
+    result = product_manager.find_product(products, name)
     assert result == expected
     assert products == make_products()
 
@@ -147,5 +148,5 @@ def test_find_product_found(name, expected):
 def test_find_product_not_found(name):
     products = make_products()
     with pytest.raises(ValueError):
-        _47_product_manager.find_product(products, name)
+        product_manager.find_product(products, name)
     

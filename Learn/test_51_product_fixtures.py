@@ -42,13 +42,13 @@
 #     Learn/test_51_product_fixtures.py
 #
 # 在这个文件里完成下面任务。
-# 先不要改 _47_product_manager.py。
+# 先不要改 47_product_manager.py。
 
 
 # 任务 1：创建 products fixture
 # 要求：
 # 1. import pytest
-# 2. import _47_product_manager
+# 2. import 47_product_manager
 # 3. 写一个 fixture，名字叫 products
 # 4. 这个 fixture 返回三件商品：
 #    - egg，价格 1
@@ -60,7 +60,8 @@
 # fixture 本质上还是一个函数。
 # 不同点是 pytest 会在运行测试时自动调用它。
 import pytest
-import _47_product_manager
+import importlib
+product_manager = importlib.import_module("47_product_manager")
 @pytest.fixture
 def products():
     return [{'name': 'egg', 'price': 1}, {'name': 'chicken', 'price': 23}, {'name': 'fork', 'price': 12}]
@@ -68,7 +69,7 @@ expected_products = [{'name': 'egg', 'price': 1}, {'name': 'chicken', 'price': 2
 
 # 任务 2：用 fixture 重写 find_product 存在场景
 # 目标：
-# 测试 _47_product_manager.find_product(products, name) 找得到商品时能返回正确商品。
+# 测试 47_product_manager.find_product(products, name) 找得到商品时能返回正确商品。
 #
 # 要求：
 # 1. 使用 pytest.mark.parametrize
@@ -88,13 +89,13 @@ expected_products = [{'name': 'egg', 'price': 1}, {'name': 'chicken', 'price': 2
      ]
 )
 def test_find_product_found(products, name, expected):
-    result = _47_product_manager.find_product(products, name)
+    result = product_manager.find_product(products, name)
     assert result == expected
     assert products == expected_products
 
 # 任务 3：用 fixture 重写 find_product 不存在场景
 # 目标：
-# 测试 _47_product_manager.find_product(products, name) 找不到商品时会 raise ValueError。
+# 测试 47_product_manager.find_product(products, name) 找不到商品时会 raise ValueError。
 #
 # 要求：
 # 1. 使用 pytest.mark.parametrize
@@ -106,16 +107,16 @@ def test_find_product_found(products, name, expected):
 )
 def test_find_product_no_found(products, name):
     with pytest.raises(ValueError):
-        _47_product_manager.find_product(products, name)
+        product_manager.find_product(products, name)
     assert products == expected_products
 
 # 任务 4：继续主线，给 total_price() 写一个使用 fixture 的测试
 # 目标：
-# 测试 _47_product_manager.total_price(products) 能正确计算当前这组三个商品的总价。
+# 测试 47_product_manager.total_price(products) 能正确计算当前这组三个商品的总价。
 #
 # 要求：
 # 1. 测试函数通过参数名 products 使用 fixture
-# 2. 调用 _47_product_manager.total_price(products)
+# 2. 调用 47_product_manager.total_price(products)
 # 3. 用 assert 判断结果是否等于 36
 # 4. 额外断言 products 没有被修改
 #
@@ -123,7 +124,7 @@ def test_find_product_no_found(products, name):
 # 这一步练的是“fixture 复用同一批测试数据”。
 # 不需要使用 parametrize，因为这里只验证一组固定商品的总价。
 def test_total_price(products):
-    result = _47_product_manager.total_price(products)
+    result = product_manager.total_price(products)
     assert result == 36
     assert products == expected_products
 # 任务 5：判断哪些测试不适合直接用同一个 products fixture
@@ -141,11 +142,11 @@ def test_total_price(products):
 
 # 任务 6：给 count_products() 写一个使用 fixture 的测试
 # 目标：
-# 测试 _47_product_manager.count_products(products) 能正确统计当前这组三个商品的数量。
+# 测试 47_product_manager.count_products(products) 能正确统计当前这组三个商品的数量。
 #
 # 要求：
 # 1. 测试函数通过参数名 products 使用 fixture
-# 2. 调用 _47_product_manager.count_products(products)
+# 2. 调用 47_product_manager.count_products(products)
 # 3. 用 assert 判断结果是否等于 3
 # 4. 额外断言 products 没有被修改
 #
@@ -153,7 +154,7 @@ def test_total_price(products):
 # 这一步和 total_price() 类似。
 # 不需要使用 parametrize，因为这里只验证一组固定商品的数量。
 def test_count_products(products):
-    result = _47_product_manager.count_products(products)
+    result = product_manager.count_products(products)
     assert result == 3
     assert products == expected_products
 # 完成标准：

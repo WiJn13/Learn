@@ -1,6 +1,6 @@
 # TITLE: 列表推导式
 # CATEGORY: 高级特性
-# _33_list_comprehension_review.py
+# 33_list_comprehension_review.py
 
 # [对x的操作 for x in 可迭代对象 if 条件（可选）]
 original = [1, 2, 3]

@@ -1,17 +1,17 @@
 # TITLE: 让交互式函数可以自动测试
 # CATEGORY: 函数参数、输入来源与可测试性
-# _58_testable_confirmation.py
+# 58_testable_confirmation.py
 
 
 # ========================
 # Part 1：把输入来源交给参数
 # ========================
 # 目标：
-# - 在不改变 _57_safe_product_deletion 确认规则的前提下，让 ask_confirmation() 不再只能使用真正的键盘输入。
+# - 在不改变 57_safe_product_deletion 确认规则的前提下，让 ask_confirmation() 不再只能使用真正的键盘输入。
 # - 理解：函数除了接收普通数据，也可以接收另一个可调用的函数。
 #
 # 要求：
-# - 参考 _57_safe_product_deletion 的 ask_confirmation()，在 _58_testable_confirmation 中重新写出这个函数。
+# - 参考 57_safe_product_deletion 的 ask_confirmation()，在 58_testable_confirmation 中重新写出这个函数。
 # - 保留 target 和 max_attempts 参数以及原来的确认、取消、重试规则。
 # - 新增 input_func 参数，默认使用 Python 内置的 input。
 # - input_func 是程序员自行设计的参数名：input 表示“输入”，func 是 function 的缩写。
@@ -19,7 +19,7 @@
 # - 本阶段不要读写 cc、dd，也不要编写商品删除流程。
 #
 # 完成标准：
-# - 不传 input_func 时，函数仍然可以像 _57_safe_product_deletion 一样等待键盘输入。
+# - 不传 input_func 时，函数仍然可以像 57_safe_product_deletion 一样等待键盘输入。
 # - 传入另一个可调用对象时，函数会从它获得字符串，不要求用户真的敲键盘。
 # - y、yes、n、no、无效重试和次数耗尽的行为都保持不变。
 # - 你能说明 input_func 保存的不是输入结果，而是“稍后可以调用的函数”。

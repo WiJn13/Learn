@@ -1,6 +1,6 @@
 # TITLE: Python 工程化入门：JSON 文件持久化
 # CATEGORY: 文件操作与数据保存
-# _53_json_product_storage.py
+# 53_json_product_storage.py
 
 
 # 今日判断：
@@ -199,7 +199,8 @@
 #
 
 import json
-import _47_product_manager
+import importlib
+product_manager = importlib.import_module("47_product_manager")
 
 def save_products(products, filename):
     with open(filename, 'w') as f:
@@ -254,9 +255,9 @@ def clean(products):
         n = product['name']
         p = product['price']
         try:
-            _47_product_manager.find_product(list_empty, n)
+            product_manager.find_product(list_empty, n)
         except ValueError:
-            _47_product_manager.add_product(list_empty, n, p)
+            product_manager.add_product(list_empty, n, p)
         else:
             pass
     return list_empty
@@ -280,9 +281,9 @@ def main():
         n = product['name']
         p = product['price']
         try:
-            c = _47_product_manager.find_product(b, n)
+            c = product_manager.find_product(b, n)
         except ValueError:
-            _47_product_manager.add_product(b, n, p)
+            product_manager.add_product(b, n, p)
         else:
             if c['price'] == p:
                 print('商品已存在')
@@ -299,7 +300,7 @@ def main():
     a = load_products('product_storage_sample.json')
     print(a) 
 
-    _47_product_manager.add_product(a, 'goose', 15)
+    47_product_manager.add_product(a, 'goose', 15)
     print(a)
     save_products(a, 'product_storage_sample.json')
 '''

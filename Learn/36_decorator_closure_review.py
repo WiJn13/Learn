@@ -1,6 +1,6 @@
 # TITLE: 装饰器与闭包深度复习
 # CATEGORY: 函数进阶
-# _36_decorator_closure_review: 装饰器与闭包逻辑深度复习
+# 36_decorator_closure_review: 装饰器与闭包逻辑深度复习
 
 # 今日复习大纲：
 # 1. 装饰器三层嵌套逻辑：参数层 -> 装饰层 -> 包装层。

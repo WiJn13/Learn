@@ -8,7 +8,7 @@ update_readme.py
 1. 扫描 Learn/ 目录下的 主题命名的 .py 文件
 2. 读取每个文件的 TITLE / CATEGORY 注释
 3. 生成简单索引文本，例如：
-   01 - _01_input_variables.py [基础语法] 输入、变量和简单函数
+   01 - 01_input_variables.py [基础语法] 输入、变量和简单函数
 4. 自动替换 README.md 中 <!-- INDEX-START --> 和 <!-- INDEX-END --> 之间的内容
 """
 
@@ -66,8 +66,8 @@ def render_index_block(items):
     形式如下：
 
     ```text
-    01 - _01_input_variables.py [基础语法] 输入、变量和简单函数
-    02 - _02_strings_base_conversion.py [字符串与序列] 字符串操作与进制转换
+    01 - 01_input_variables.py [基础语法] 输入、变量和简单函数
+    02 - 02_strings_base_conversion.py [字符串与序列] 字符串操作与进制转换
     ...
     ```
     """

@@ -23,7 +23,7 @@ def make_safe_module_name(name: str) -> str:
       - 全部小写
       - 空格/连字符/点 -> 下划线
       - 删除非字母数字下划线字符
-      - 若以数字开头，前加下划线
+      - 普通名称若以数字开头，前加下划线；编号_主题形式保留数字开头
       - 若最终为空，命名为 module
     """
     s = name.strip().lower()
@@ -37,7 +37,7 @@ def make_safe_module_name(name: str) -> str:
     s = re.sub(r"_+", "_", s)
     s = s.strip("_")
     # 不能以数字开头
-    if re.match(r"^[0-9]", s):
+    if re.match(r"^[0-9]", s) and not re.fullmatch(r"[0-9]+_[a-z_][a-z0-9_]*", s):
         s = "_" + s
     # 空名兜底
     if not s:

@@ -1,6 +1,6 @@
 # TITLE: 生成器与迭代器
 # CATEGORY: 函数进阶
-# _37_generator_iterator_practice.py
+# 37_generator_iterator_practice.py
 
 
 # 核心复习内容：函数进阶 (续)

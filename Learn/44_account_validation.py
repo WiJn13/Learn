@@ -1,6 +1,6 @@
 # TITLE: 面向对象复习：封装、属性校验与异常流程
 # CATEGORY: 面向对象编程
-# _44_account_validation.py
+# 44_account_validation.py
 
 
 # 今日目标：

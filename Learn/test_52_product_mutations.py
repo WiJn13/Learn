@@ -17,7 +17,7 @@
 #    - 会修改传入的数据
 # 2. 学会测试 add_product() 这种会改变 products 的函数
 # 3. 继续巩固：测试要看清楚“执行前、执行动作、执行后”
-# 4. 暂时不修改 _47_product_manager.py
+# 4. 暂时不修改 47_product_manager.py
 
 
 # Part 1：先判断函数类型
@@ -58,7 +58,7 @@
 
 # Part 3：第一个练习
 # 目标：
-# 给 _47_product_manager.add_product() 写一个“合法价格”的测试。
+# 给 47_product_manager.add_product() 写一个“合法价格”的测试。
 #
 # 要求：
 # 1. 在测试里准备一个空列表 products
@@ -76,7 +76,8 @@
 # 2. 你能说清楚为什么这里重点检查 products，而不是检查 result
 # 又不是计算值
 # 3. 你能写出一个最小测试，只验证“合法添加”这一种行为
-import _47_product_manager
+import importlib
+product_manager = importlib.import_module("47_product_manager")
 import pytest
 
 @pytest.fixture
@@ -85,13 +86,13 @@ def products():
 
 def test_add_product():
     products = []
-    _47_product_manager.add_product(products, 'milk', 6)
+    product_manager.add_product(products, 'milk', 6)
     assert products == [{'name': 'milk', 'price': 6}]
 
 
 # Part 4：第二个练习
 # 目标：
-# 给 _47_product_manager.add_product() 写一个“非法价格”的测试。
+# 给 47_product_manager.add_product() 写一个“非法价格”的测试。
 #
 # 要求：
 # 1. 在测试里准备一个空列表 products
@@ -105,13 +106,13 @@ def test_add_product():
 def test_add_product_invalid_price():
     products = []
     with pytest.raises(ValueError):
-        _47_product_manager.add_product(products, 'goose', -1)
+        product_manager.add_product(products, 'goose', -1)
     assert products == []
 
 
 # Part 5：第三个练习
 # 目标：
-# 给 _47_product_manager.remove_product() 写一个“成功删除”的测试。
+# 给 47_product_manager.remove_product() 写一个“成功删除”的测试。
 #
 # 要求：
 # 1. 在测试里准备一个有多个商品的 products
@@ -123,13 +124,13 @@ def test_add_product_invalid_price():
 # 这一步继续练“执行前、执行动作、执行后”。
 # remove_product() 的重点不是返回值，而是 products 这个 list 被正确修改。
 def test_remove_product(products):
-    _47_product_manager.remove_product(products, 'fork')
+    product_manager.remove_product(products, 'fork')
     assert products == [{'name': 'egg', 'price': 2}, {'name': 'carrot', 'price': 12}]
 
 
 # Part 6：第四个练习
 # 目标：
-# 给 _47_product_manager.remove_product() 写一个“删除不存在商品”的测试。
+# 给 47_product_manager.remove_product() 写一个“删除不存在商品”的测试。
 #
 # 要求：
 # 1. 使用 products fixture 准备一份已有商品列表
@@ -143,13 +144,13 @@ def test_remove_product(products):
 # - Part 6：商品不存在，应该拒绝删除并抛出异常
 def test_remove_product_no_found(products):
     with pytest.raises(ValueError):
-        _47_product_manager.remove_product(products, 'no_exist')
+        product_manager.remove_product(products, 'no_exist')
     assert products == [{'name': 'fork', 'price': 23}, {'name': 'egg', 'price': 2}, {'name': 'carrot', 'price': 12}]
 
 
 # Part 7：第五个练习
 # 目标：
-# 给 _47_product_manager.clear_products() 写一个“清空商品列表”的测试。
+# 给 47_product_manager.clear_products() 写一个“清空商品列表”的测试。
 #
 # 要求：
 # 1. 使用 products fixture 准备一份已有商品列表
@@ -160,13 +161,13 @@ def test_remove_product_no_found(products):
 # clear_products() 和 remove_product() 一样，重点不是返回值。
 # 它验证的是：传入的那个 list 对象被清空了。
 def test_clear_products(products):
-    _47_product_manager.clear_products(products)
+    product_manager.clear_products(products)
     assert products == []
 
 
 # Part 8：第六个练习
 # 目标：
-# 给 _47_product_manager.update_product_price() 写一个“成功修改价格”的测试。
+# 给 47_product_manager.update_product_price() 写一个“成功修改价格”的测试。
 #
 # 要求：
 # 1. 使用 products fixture 准备一份已有商品列表
@@ -183,14 +184,14 @@ def test_clear_products(products):
 # 可选挑战：
 # - 不只检查整个 products 列表，也尝试说明为什么这样能证明“只修改了目标商品”。
 def test_update_product_price(products):
-    _47_product_manager.update_product_price(products, 'fork', 20)
+    product_manager.update_product_price(products, 'fork', 20)
     assert products[0]['price'] == 20
     assert products == [{'name': 'fork', 'price': 20}, {'name': 'egg', 'price':2}, {'name': 'carrot', 'price': 12}]
 
 
 # Part 9：第七个练习
 # 目标：
-# 给 _47_product_manager.update_product_price() 写一个“商品不存在”的测试。
+# 给 47_product_manager.update_product_price() 写一个“商品不存在”的测试。
 #
 # 要求：
 # 1. 使用 products fixture 准备一份已有商品列表
@@ -207,7 +208,7 @@ def test_update_product_price(products):
 # - 思考：这个测试和 Part 6 的结构有什么相同点？
 def test_update_product_price_no_product(products):
     with pytest.raises(ValueError):
-        _47_product_manager.update_product_price(products, 'no_exist', 0)
+        product_manager.update_product_price(products, 'no_exist', 0)
     assert products == [{'name': 'fork', 'price': 23}, {'name': 'egg', 'price':2}, {'name': 'carrot', 'price': 12}]
 
 

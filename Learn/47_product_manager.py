@@ -1,6 +1,6 @@
 # TITLE: Python 工程化入门：main()、程序入口与模块复用
 # CATEGORY: 模块化与代码组织
-# _47_product_manager.py
+# 47_product_manager.py
 
 
 # 今日判断：
@@ -10,7 +10,7 @@
 # 3. 继承、组合、多态
 # 4. ABC 和鸭子类型的区别
 #
-# _47_product_manager 不继续堆新的 OOP 概念。
+# 47_product_manager 不继续堆新的 OOP 概念。
 # 今天开始练：怎么把“能运行的练习代码”整理成“以后能复用、能导入、能测试的小模块”。
 
 
@@ -30,7 +30,7 @@
 #
 # 判断方法：
 # - 直接运行这个文件时，__name__ 的值是 "__main__"。
-# - 被其他文件 import 时，__name__ 的值是模块名，比如 "_47_product_manager"。
+# - 被其他文件 import 时，__name__ 的值是模块名，比如 "47_product_manager"。
 
 
 # Part 2：定义可以复用的函数
@@ -127,7 +127,7 @@ if __name__ == "__main__":
 # 标准答案：临时测试代码放进main()，可以集中管理一次运行流程
 # 并且避免import这个文件时自动执行测试代码
 
-# 4. 如果另一个文件 import _47_product_manager，你希望它自动 print(total_price(products)) 吗？
+# 4. 如果另一个文件 import 47_product_manager，你希望它自动 print(total_price(products)) 吗？
 # 我的回答：
 # 不
 

@@ -1,21 +1,21 @@
 # TITLE: 安全修改商品价格
 # CATEGORY: 文件操作与数据安全
-# _56_safe_product_price_update.py
+# 56_safe_product_price_update.py
 
 
 # ========================
 # Part 1：找到后再更新价格
 # ========================
 # 目标：
-# - 在 _55_safe_product_addition 的安全新增基础上，安全地修改一件已经存在的商品。
+# - 在 55_safe_product_addition 的安全新增基础上，安全地修改一件已经存在的商品。
 # - 理解：更新不是新增；必须先找到目标商品，再验证新价格，最后才修改内存数据。
 #
 # 要求：
-# - 从 _55_safe_product_addition.py 复用 load_products()、check() 和 save_products()。
+# - 从 55_safe_product_addition.py 复用 load_products()、check() 和 save_products()。
 # - 新建 update_product_price(products, name, new_price)。
 # - 先确认 products 整体符合既有规则；不符合时抛出 ValueError。
 # - 按 name 找到对应商品；找不到时抛出 ValueError，不修改列表。
-# - 新价格必须符合 _54_json_product_validation 的规则：int 或 float、不是 bool、且不小于 0。
+# - 新价格必须符合 54_json_product_validation 的规则：int 或 float、不是 bool、且不小于 0。
 # - 新价格合法时才修改找到的那一件商品的 price。
 # - 函数只修改内存列表，不负责写文件。
 
@@ -70,7 +70,7 @@ def update_product_price(products, name, new_price):
 
 
 # main() 流程：
-# - 从 bb 读取 _55_safe_product_addition 保存的商品列表。
+# - 从 bb 读取 55_safe_product_addition 保存的商品列表。
 # - 将 nick 的价格修改为一个你自己选择的合法价格。
 # - 保存到新文件 cc，不要覆盖 bb。
 # - 再读取 cc 并打印结果。

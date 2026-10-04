@@ -1,6 +1,6 @@
 # TITLE: 安全删除商品
 # CATEGORY: 文件操作与数据安全
-# _57_safe_product_deletion.py
+# 57_safe_product_deletion.py
 
 
 # ========================
@@ -11,7 +11,7 @@
 # - 理解：删除是不可逆操作之一，因此必须先确认目标存在，再改变内存列表，最后才保存。
 #
 # 要求：
-# - 从 _56_safe_product_price_update.py 复用 load_products()、check() 和 save_products()。
+# - 从 56_safe_product_price_update.py 复用 load_products()、check() 和 save_products()。
 # - 新建 delete_product(products, name)。
 # - 先验证 products 整体符合既有规则；不符合时抛出 ValueError。
 # - 按 name 找到商品；找不到时抛出 ValueError，原列表不变。

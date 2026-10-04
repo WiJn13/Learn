@@ -3,11 +3,11 @@
 
 用法示例：
 - 交互模式（运行后输入出生日期）：
-    python _62_calculate_days_lived.py
+    python 62_calculate_days_lived.py
 
 - 命令行参数（一次运行直接给出生日期）：
-    python _62_calculate_days_lived.py --birth 1990-01-01
-    python _62_calculate_days_lived.py -b 1990/01/01
+    python 62_calculate_days_lived.py --birth 1990-01-01
+    python 62_calculate_days_lived.py -b 1990/01/01
 
 支持的日期格式（宽松）：YYYY-MM-DD, YYYY/MM/DD, YYYY.MM.DD
 

@@ -1,7 +1,7 @@
 ## 列表推导式学习内容总结计划
 
 ### 目标
-总结 `Learn/_33_list_comprehension_review.py` 文件中的学习内容，并以清晰、结构化的方式呈现。
+总结 `Learn/33_list_comprehension_review.py` 文件中的学习内容，并以清晰、结构化的方式呈现。
 
 ### 待办事项
 - [ ] 总结列表推导式的使用和示例。
