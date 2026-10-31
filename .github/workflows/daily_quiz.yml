@@ -2,7 +2,10 @@ name: Daily Python Quiz
 
 on:
   schedule:
-    # 北京时间 19:30 / 19:45 = UTC 11:30 / 11:45
+    # 2026 年 11 月工作日：北京时间 08:30 开始，后续时点重试
+    - cron: "30,45 0 * 11 1-5"
+    - cron: "0,15,30 1 * 11 1-5"
+    # 其他日期保留北京时间 19:30 / 19:45 = UTC 11:30 / 11:45
     - cron: "30,45 11 * * *"
     # 北京时间 20:00 / 20:15 / 20:30 = UTC 12:00 / 12:15 / 12:30
     - cron: "0,15,30 12 * * *"
@@ -31,7 +34,16 @@ jobs:
           fi
 
           NOW_UTC=$(date -u '+%H%M')
-          if [ "$NOW_UTC" -ge 1130 ] && [ "$NOW_UTC" -lt 1530 ]; then
+          BEIJING_DAY=$(TZ=Asia/Shanghai date '+%Y-%m-%u')
+          # 只调整 2026 年 11 月工作日；周末和其他月份保留晚间窗口。
+          if [[ "$BEIJING_DAY" =~ ^2026-11-[1-5]$ ]]; then
+            WINDOW_START=30
+            WINDOW_END=430
+          else
+            WINDOW_START=1130
+            WINDOW_END=1530
+          fi
+          if [ "$NOW_UTC" -ge "$WINDOW_START" ] && [ "$NOW_UTC" -lt "$WINDOW_END" ]; then
             echo "ready=true" >> "$GITHUB_OUTPUT"
           else
             echo "ready=false" >> "$GITHUB_OUTPUT"
@@ -54,7 +66,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           DATE=$(python -c "from datetime import datetime, timezone, timedelta; bj=datetime.now(timezone.utc) + timedelta(hours=8); print((bj.date() - (timedelta(days=1) if bj.hour < 6 else timedelta())).isoformat())")
-          TITLE="Python每日小测 - $DATE 19:30"
+          QUIZ_SLOT=$(python -c "from datetime import date; import sys; d=date.fromisoformat(sys.argv[1]); print('08:30' if d.year == 2026 and d.month == 11 and d.weekday() < 5 else '19:30')" "$DATE")
+          TITLE="Python每日小测 - $DATE $QUIZ_SLOT"
           EXISTING_TITLE=$(gh issue list --state all --search "$TITLE in:title" --json title --jq '.[].title' | grep -Fx "$TITLE" || true)
 
           echo "title=$TITLE" >> "$GITHUB_OUTPUT"
